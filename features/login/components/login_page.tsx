@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "@/features/auth/services/auth.service";
+import { loginSchema, type LoginInput } from "@/features/auth/schemas/login.schema";
 import styles from "./login_page.module.css";
 
 interface Particle {
@@ -337,9 +341,14 @@ function TruckIllustration() {
 }
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInput>({ resolver: zodResolver(loginSchema) });
 
   useEffect(() => {
     const generated = Array.from({ length: 24 }, () => {
@@ -355,10 +364,13 @@ export default function LoginPage() {
     setParticles(generated);
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // TODO: wire up to auth service
-  }
+  const onSubmit = (values: LoginInput) => {
+    setFormError(null);
+    startTransition(async () => {
+      const result = await login(values);
+      if (result?.error) setFormError(result.error);
+    });
+  };
 
   return (
     <div className={styles.root}>
@@ -369,7 +381,7 @@ export default function LoginPage() {
             Log in to create and manage insurance policies
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className={styles.field}>
               <label className={styles.fieldLabel} htmlFor="email">
                 Email
@@ -378,10 +390,11 @@ export default function LoginPage() {
                 id="email"
                 className={styles.fieldInput}
                 type="email"
+                autoComplete="email"
                 placeholder="johnsmith@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
               />
+              {errors.email && <p className={styles.fieldError}>{errors.email.message}</p>}
             </div>
 
             <div className={`${styles.field} ${styles.f2}`}>
@@ -392,18 +405,21 @@ export default function LoginPage() {
                 id="password"
                 className={styles.fieldInput}
                 type="password"
+                autoComplete="current-password"
                 placeholder="••••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password")}
               />
+              {errors.password && <p className={styles.fieldError}>{errors.password.message}</p>}
               <Link href="/reset-password" className={styles.forgot}>
                 Forgot password?
               </Link>
             </div>
 
-            <button className={styles.btnLogin} type="submit">
+            {formError && <p className={styles.formError}>{formError}</p>}
+
+            <button className={styles.btnLogin} type="submit" disabled={isPending}>
               <span className={styles.btnShine} />
-              Log In
+              {isPending ? "Signing in…" : "Log In"}
             </button>
           </form>
 
