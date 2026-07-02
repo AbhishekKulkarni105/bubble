@@ -1,0 +1,6 @@
+# Minimal Supabase project config. Run `supabase init` locally to expand.
+project_id = "diamondback-insurance"
+
+[db]
+port = 54322
+major_version = 15
