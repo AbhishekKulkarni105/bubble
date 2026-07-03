@@ -7,8 +7,8 @@ import { loginSchema, type LoginInput } from "../schemas/login.schema";
 /**
  * Authenticate with email & password via Supabase Auth (`signInWithPassword`).
  * On success the session is persisted to cookies by the server client and the
- * user is redirected to the dashboard. On failure a user-friendly message is
- * returned to the caller for display.
+ * user is redirected to the agencies page. On failure a user-friendly message
+ * is returned to the caller for display.
  */
 export async function login(input: LoginInput): Promise<{ error: string } | void> {
   const parsed = loginSchema.safeParse(input);
@@ -26,7 +26,7 @@ export async function login(input: LoginInput): Promise<{ error: string } | void
     return { error: "Invalid email or password" };
   }
 
-  redirect("/dashboard");
+  redirect("/agency");
 }
 
 /** Clear the Supabase session and return to the login page. */

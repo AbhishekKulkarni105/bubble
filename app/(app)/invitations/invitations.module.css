@@ -1,0 +1,103 @@
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--vayga-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all var(--vayga-t);
+}
+
+.card:hover {
+  background: #ffffff;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vayga-text);
+}
+
+.email {
+  font-size: 11px;
+  color: var(--vayga-text-3);
+  margin-top: 2px;
+}
+
+.meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.date {
+  font-size: 11px;
+  color: var(--vayga-text-3);
+}
+
+.expiry {
+  font-size: 10px;
+  color: var(--vayga-red);
+  margin-top: 2px;
+}
+
+.expiryUrgent {
+  font-weight: 700;
+}
+
+.joined {
+  font-size: 10px;
+  color: var(--vayga-green);
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.resendBtn {
+  background: var(--vayga-accent-dim);
+  border: 1px solid var(--vayga-accent-border);
+  border-radius: 7px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vayga-accent-light);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--vayga-t);
+  margin-left: 12px;
+}
+
+.resendBtn:hover {
+  background: rgba(18, 58, 99, 0.18);
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vayga-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 4px 0 10px;
+}
+
+.accepted {
+  opacity: 0.6;
+}

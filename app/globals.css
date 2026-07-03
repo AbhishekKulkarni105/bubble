@@ -9,7 +9,66 @@
 
 body {
   font-family: Inter, sans-serif;
-  background: #f5f7fb;
+  background: #f5f8fb;
+}
+
+/* ================================================================
+   VAYGA design tokens — shared by the authenticated app shell
+   (Sidebar, Topbar, Dashboard, Agencies, Quote Wizard).
+   Light theme — navy + gold on white/glass surfaces.
+   ================================================================ */
+:root {
+  /* Dark navy scale — reserved for the login hero panel only. */
+  --vayga-navy-950: #0a1628;
+  --vayga-navy-900: #0d1e38;
+  --vayga-navy-800: #112244;
+  --vayga-navy-700: #123a63;
+
+  /* Page surface */
+  --vayga-bg: #f5f8fb;
+  --vayga-bg-2: #edf2f7;
+
+  /* Navy accent — used for links, active states, focus rings, highlighted values */
+  --vayga-accent: #123a63;
+  --vayga-accent-light: #164e82;
+  --vayga-accent-dim: rgba(18, 58, 99, 0.1);
+  --vayga-accent-border: rgba(18, 58, 99, 0.26);
+
+  /* Gold — reserved for primary CTAs, active nav marker, badges */
+  --vayga-gold: #ffd400;
+  --vayga-gold-mid: #f5c400;
+  --vayga-gold-light: #ffe566;
+  --vayga-gold-deep: #8a6b00;
+  --vayga-gold-dim: rgba(245, 196, 0, 0.16);
+  --vayga-gold-border: rgba(245, 196, 0, 0.55);
+  --vayga-gold-glow: rgba(245, 196, 0, 0.32);
+
+  --vayga-teal: #0891b2;
+  --vayga-teal-dim: rgba(8, 145, 178, 0.1);
+  --vayga-green: #16a34a;
+  --vayga-green-dim: rgba(22, 163, 74, 0.1);
+  --vayga-purple: #7c3aed;
+  --vayga-purple-dim: rgba(124, 58, 237, 0.1);
+  --vayga-red: #dc2626;
+  --vayga-red-dim: rgba(220, 38, 38, 0.1);
+
+  --vayga-text: #0c1e33;
+  --vayga-text-2: #33475b;
+  --vayga-text-3: #647688;
+  --vayga-text-4: #94a5b6;
+
+  --vayga-border: rgba(12, 30, 51, 0.09);
+  --vayga-border-2: rgba(12, 30, 51, 0.15);
+  --vayga-glass: rgba(255, 255, 255, 0.85);
+  --vayga-glass-2: rgba(255, 255, 255, 0.96);
+  --vayga-sidebar-bg: rgba(255, 255, 255, 0.98);
+  --vayga-panel-bg: rgba(255, 255, 255, 0.97);
+
+  --vayga-radius: 14px;
+  --vayga-radius-sm: 9px;
+  --vayga-sidebar-w: 248px;
+  --vayga-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --vayga-t: 0.22s;
 }
 
 .login-page {

@@ -1,0 +1,64 @@
+.card {
+  background: var(--vayga-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--vayga-border);
+  border-radius: 18px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent 60%);
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.title {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vayga-text);
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--vayga-text-3);
+}
+
+.legend {
+  display: flex;
+  gap: 12px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--vayga-text-3);
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.chartWrap {
+  position: relative;
+  height: 220px;
+}

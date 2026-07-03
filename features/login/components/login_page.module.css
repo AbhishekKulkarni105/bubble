@@ -1,86 +1,184 @@
 .root {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
-
-/* ─── LEFT PANEL ─── */
-.left {
-  flex: 0 0 44%;
-  background: #f1f5f9;
+  --ink: #12233f;
+  --muted: #8aa0bf;
+  --card-radius: 38px;
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--vayga-navy-900) 0%, var(--vayga-navy-950) 55%, #081120 100%);
+  position: relative;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.5rem 3.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ------- ambient night-highway backdrop ------- */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene svg {
+  width: 100%;
+  height: 100%;
+}
+
+.glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(60, 110, 200, 0.22) 0%, transparent 65%);
+  top: -140px;
+  right: -100px;
+  filter: blur(10px);
+}
+
+.glowTwo {
+  width: 420px;
+  height: 420px;
+  top: auto;
+  bottom: -120px;
+  left: -120px;
+  background: radial-gradient(circle, rgba(255, 212, 0, 0.07) 0%, transparent 70%);
+}
+
+/* ------- layout ------- */
+.wrap {
   position: relative;
   z-index: 2;
+  flex: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 60px 6vw;
+  gap: 40px;
 }
 
-.formInner {
-  width: 100%;
-  max-width: 400px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 2.2rem 2rem;
-  box-shadow: 0 4px 32px rgba(30, 58, 138, 0.1), 0 1.5px 6px rgba(30, 58, 138, 0.06);
+.pitch h1 {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: clamp(34px, 4.2vw, 58px);
+  line-height: 1.15;
+  margin-bottom: 26px;
 }
 
-.loginTitle {
-  font-size: 32px;
+.pitchSub {
+  color: #d7e1ef;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 18px;
+}
+
+.pitchStrap {
+  color: var(--vayga-gold);
   font-weight: 700;
-  color: #1e3a8a;
-  text-align: center;
-  margin-bottom: 6px;
-  animation: fadeUp 0.5s 0.06s ease both;
+  font-size: 16px;
+  letter-spacing: 0.2px;
 }
 
-.loginSub {
-  font-size: 13.5px;
-  color: #64748b;
+/* ------- login card ------- */
+.card {
+  justify-self: center;
+  width: 100%;
+  max-width: 430px;
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  padding: 46px 44px 40px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    animation: rise 0.5s ease both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.logoLockup {
   text-align: center;
-  line-height: 1.5;
-  margin-bottom: 2.2rem;
-  animation: fadeUp 0.5s 0.1s ease both;
+  margin-bottom: 8px;
+}
+
+.logoImg {
+  width: 190px;
+  max-width: 70%;
+  height: auto;
+  display: inline-block;
+}
+
+.cardTitle {
+  text-align: center;
+  color: var(--ink);
+  font-size: 26px;
+  font-weight: 700;
+  margin: 14px 0 6px;
+}
+
+.hint {
+  text-align: center;
+  color: #6d7f99;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.accentBar {
+  height: 4px;
+  width: 56px;
+  background: var(--vayga-gold);
+  border-radius: 2px;
+  margin: 0 auto 22px;
 }
 
 .field {
-  margin-bottom: 1.1rem;
-  animation: fadeUp 0.5s 0.14s ease both;
+  margin-bottom: 20px;
 }
-.field.f2 {
-  animation-delay: 0.18s;
+
+.fieldPassword {
+  margin-bottom: 10px;
 }
 
 .fieldLabel {
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 6px;
   display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
 }
 
 .fieldInput {
   width: 100%;
-  height: 48px;
-  background: #f1f5f9;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 0 15px;
+  padding: 13px 16px;
   font-size: 14px;
-  color: #1e293b;
-  font-family: inherit;
+  color: var(--ink);
+  background: #f2f5fa;
+  border: 1.5px solid #dbe3ee;
+  border-radius: 12px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
+
 .fieldInput::placeholder {
-  color: #94a3b8;
+  color: #9aabc4;
 }
+
 .fieldInput:focus {
-  border-color: #3b82f6;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+  border-color: var(--vayga-navy-700);
+  box-shadow: 0 0 0 3px rgba(27, 53, 93, 0.15);
 }
 
 .fieldError {
@@ -96,265 +194,94 @@
   border: 1px solid #fecaca;
   border-radius: 8px;
   padding: 10px 12px;
-  margin-top: 1rem;
+  margin-top: 4px;
+  margin-bottom: 16px;
 }
 
 .forgot {
+  display: inline-block;
   font-size: 12.5px;
-  color: #64748b;
-  margin-top: 6px;
-  cursor: pointer;
-  display: block;
-  transition: color 0.2s;
-  background: none;
-  border: none;
-  padding: 0;
-  text-align: left;
+  color: #3f5a86;
+  text-decoration: none;
+  margin-top: 8px;
 }
+
 .forgot:hover {
-  color: #3b82f6;
+  text-decoration: underline;
 }
 
 .btnLogin {
   width: 100%;
-  height: 50px;
-  margin-top: 1.5rem;
+  padding: 15px;
   border: none;
-  border-radius: 10px;
-  font-family: inherit;
-  font-size: 15.5px;
-  font-weight: 700;
-  color: #fff;
+  border-radius: 999px;
   cursor: pointer;
+  background: var(--ink);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-family: inherit;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
-  background-size: 200% 100%;
-  box-shadow: 0 4px 18px rgba(37, 99, 235, 0.38);
-  transition: background-position 0.4s, transform 0.15s, box-shadow 0.2s;
-  animation: fadeUp 0.5s 0.22s ease both;
-  letter-spacing: 0.02em;
-}
-.btnLogin:hover {
-  background-position: 100% 0;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.46);
-}
-.btnLogin:active {
-  transform: scale(0.985);
+  margin-top: 24px;
+  transition: background 0.15s, transform 0.1s;
 }
 
-.btnShine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: shine 3s 1.2s infinite;
+.btnLogin:hover {
+  background: #1c3559;
+}
+
+.btnLogin:active {
+  transform: scale(0.99);
+}
+
+.btnLogin:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.btnLogin:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.divider {
+  height: 1px;
+  background: #e6ebf3;
+  margin: 26px 0 20px;
 }
 
 .quoteLink {
   display: block;
   text-align: center;
-  margin-top: 1rem;
-  font-size: 13px;
-  font-weight: 500;
-  color: #2563eb;
-  cursor: pointer;
+  font-size: 13.5px;
+  color: #3f5a86;
   text-decoration: underline;
-  text-underline-offset: 2px;
-  animation: fadeUp 0.5s 0.28s ease both;
-  transition: color 0.2s;
-  background: none;
-  border: none;
+  text-underline-offset: 3px;
 }
+
 .quoteLink:hover {
-  color: #1d4ed8;
-}
-
-/* ─── RIGHT PANEL ─── */
-.right {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(155deg, #0c2461 0%, #082055 35%, #051535 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 2rem 2.5rem 2.8rem;
-}
-
-.rGrid {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: linear-gradient(rgba(99, 165, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 165, 255, 0.07) 1px, transparent 1px);
-  background-size: 48px 48px;
-  transform: perspective(700px) rotateX(18deg) scale(1.5);
-  transform-origin: center 65%;
-}
-
-.rOrb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 1;
-}
-.ro1 {
-  width: 420px;
-  height: 420px;
-  background: rgba(29, 78, 216, 0.22);
-  top: -100px;
-  right: -80px;
-  animation: orbFloat 7s ease-in-out infinite;
-}
-.ro2 {
-  width: 260px;
-  height: 260px;
-  background: rgba(67, 56, 202, 0.14);
-  bottom: -60px;
-  left: -30px;
-  animation: orbFloat 9s ease-in-out infinite reverse;
-}
-.ro3 {
-  width: 200px;
-  height: 200px;
-  background: rgba(6, 182, 212, 0.08);
-  top: 40%;
-  left: 30%;
-  animation: orbFloat 6s ease-in-out infinite;
-}
-
-.panelLogo {
-  position: absolute;
-  top: 1.8rem;
-  left: 2rem;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  animation: fadeUp 0.7s 0.1s both;
-}
-.truckScene {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: truckFloat 7s ease-in-out infinite;
-}
-.truckScene svg {
-  width: 88%;
-  height: auto;
-  max-height: 72%;
-}
-
-.panelTagline {
-  position: relative;
-  z-index: 20;
-  animation: fadeUp 0.7s 0.3s both;
-}
-.panelTagline h2 {
-  font-size: 24px;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.25;
-  margin-bottom: 6px;
-}
-.panelTagline p {
-  font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.42);
-  line-height: 1.65;
-  max-width: 280px;
-}
-
-.pts {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 2;
-}
-.pt {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(99, 165, 255, 0.4);
-  animation: particleFloat linear infinite;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes shine {
-  0% {
-    left: -100%;
-  }
-  30%,
-  100% {
-    left: 160%;
-  }
-}
-@keyframes orbFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-18px);
-  }
-}
-@keyframes truckFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-@keyframes particleFloat {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateY(-100vh);
-    opacity: 0;
-  }
+  color: var(--ink);
 }
 
 @media (max-width: 900px) {
-  .root {
-    flex-direction: column;
-    height: auto;
+  .wrap {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
   }
-  .left {
-    flex: none;
-    width: 100%;
-    padding: 2.5rem 1.5rem;
-    min-height: 55vh;
+
+  .pitch {
+    text-align: center;
+    order: 2;
   }
-  .right {
-    flex: none;
-    width: 100%;
-    min-height: 55vh;
+
+  .pitchSub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card {
+    order: 1;
   }
 }

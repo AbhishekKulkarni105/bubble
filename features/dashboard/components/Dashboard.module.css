@@ -1,0 +1,81 @@
+.wrap {
+  width: 100%;
+}
+
+.secRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.activityCard {
+  background: var(--vayga-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--vayga-border);
+  border-radius: 18px;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.activityTitle {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vayga-text);
+}
+
+.activitySubtitle {
+  font-size: 11px;
+  color: var(--vayga-text-3);
+  margin-top: 2px;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.activityText {
+  flex: 1;
+  font-size: 11px;
+  color: var(--vayga-text-2);
+}
+
+.activityText strong {
+  color: var(--vayga-text);
+}
+
+.activityTime {
+  font-size: 10px;
+  color: var(--vayga-text-3);
+}
+
+.sectionTitle {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--vayga-text);
+  margin: 4px 0 14px;
+}
+
+@media (max-width: 1200px) {
+  .secRow {
+    grid-template-columns: 1fr;
+  }
+}

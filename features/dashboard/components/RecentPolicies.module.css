@@ -1,0 +1,145 @@
+.panel {
+  background: var(--vayga-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--vayga-border);
+  border-radius: 20px;
+  padding: 16px 20px 20px;
+  margin-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.title {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vayga-text);
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--vayga-text-3);
+}
+
+.viewAll {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vayga-accent-light);
+  text-decoration: none;
+}
+
+.row {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--vayga-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all var(--vayga-t);
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+.row:hover {
+  background: #ffffff;
+  border-color: var(--vayga-accent-border);
+}
+
+.rowCancelled {
+  opacity: 0.6;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vayga-text);
+}
+
+.num {
+  font-size: 10px;
+  color: var(--vayga-text-3);
+  margin-top: 2px;
+  font-family: "Space Grotesk", Arial, sans-serif;
+}
+
+.progress {
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(12, 30, 51, 0.08);
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 99px;
+}
+
+.dates {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.exp {
+  font-size: 11px;
+  color: var(--vayga-text-2);
+}
+
+.daysLeft {
+  font-size: 10px;
+  color: var(--vayga-text-3);
+  margin-top: 2px;
+}
+
+.amount {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--vayga-text);
+  text-align: right;
+  flex-shrink: 0;
+  min-width: 90px;
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .amount,
+  .dates {
+    text-align: left;
+  }
+}

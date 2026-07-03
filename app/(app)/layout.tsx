@@ -1,14 +1,15 @@
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
+import styles from "@/components/layout/app-shell.module.css";
 
 /** Authenticated app shell — replaces Bubble `index` page + sidebar/header reusables. */
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen">
+    <div className={styles.shell}>
       <Sidebar />
-      <div className="flex flex-1 flex-col">
+      <div className={styles.main}>
         <Header />
-        <main className="flex-1 p-6">{children}</main>
+        <main className={styles.content}>{children}</main>
       </div>
     </div>
   );

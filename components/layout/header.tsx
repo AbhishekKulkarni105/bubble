@@ -1,11 +1,12 @@
-import { LogoutButton } from "@/features/auth/components/logout-button";
+import { createClient } from "@/lib/supabase/server";
+import { Topbar } from "@/features/dashboard/components/Topbar";
 
-/** Replaces Bubble header reusable. */
-export function Header() {
-  return (
-    <header className="flex h-14 items-center justify-between border-b px-6">
-      <span className="font-semibold">Diamondback Insurance</span>
-      <LogoutButton />
-    </header>
-  );
+/** VAYGA app shell topbar; replaces Bubble header reusable. */
+export async function Header() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return <Topbar userEmail={user?.email} />;
 }
