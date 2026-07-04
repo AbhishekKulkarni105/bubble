@@ -116,7 +116,7 @@
 }
 
 .cardTitle {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-size: 22px;
   font-weight: 800;
   color: var(--vayga-text);
@@ -155,7 +155,7 @@
 }
 
 .heroTitle {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-size: 30px;
   font-weight: 800;
   color: var(--vayga-text);
@@ -587,7 +587,7 @@
 }
 
 .resultTitle {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-size: 26px;
   font-weight: 800;
   color: var(--vayga-text);
@@ -595,7 +595,7 @@
 }
 
 .priceAmount {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-size: 56px;
   font-weight: 800;
   background: linear-gradient(135deg, #123a63, #1c5083 55%, #e4b000);
@@ -642,7 +642,7 @@
   text-align: right;
   font-weight: 700;
   color: var(--vayga-accent-light);
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
 }
 
 .totalRow {
@@ -663,7 +663,7 @@
 }
 
 .totalValue {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-size: 22px;
   font-weight: 800;
   color: var(--vayga-accent-light);

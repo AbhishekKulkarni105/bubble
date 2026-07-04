@@ -1,0 +1,206 @@
+.panel {
+  background: var(--vayga-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  overflow: hidden;
+  margin-bottom: 22px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  /* Shared pointer-tracking 3D tilt (see lib/cardTilt.ts). */
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0);
+  transform-style: preserve-3d;
+  transition: box-shadow 0.2s ease, transform 0.12s ease;
+  will-change: transform;
+}
+
+.panel:hover {
+  box-shadow: 0 20px 40px rgba(12, 30, 51, 0.18), 0 8px 16px rgba(12, 30, 51, 0.1);
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.profileCard {
+  padding: 24px 26px;
+  min-height: 150px;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.profileCard h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--vayga-text);
+}
+
+.editPencil {
+  color: #2563eb;
+  cursor: pointer;
+  display: inline-flex;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform var(--vayga-t);
+}
+
+.editPencil:hover {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.editPencil svg {
+  width: 19px;
+  height: 19px;
+}
+
+.selectLogoWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+.pillBtn {
+  padding: 11px 24px;
+  border: none;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--vayga-t);
+}
+
+.pillBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+}
+
+.pcRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pcRow .inp {
+  flex: 1;
+}
+
+.pcRow .sel {
+  max-width: 165px;
+}
+
+.inp {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--vayga-text);
+  padding: 11px 15px;
+  border: 1px solid rgba(12, 30, 51, 0.15);
+  border-radius: 10px;
+  background: rgba(12, 30, 51, 0.03);
+  transition: all var(--vayga-t);
+  outline: none;
+}
+
+.inp::placeholder {
+  color: var(--vayga-text-4);
+}
+
+.inp:focus {
+  border-color: #2563eb;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.inpWarn {
+  border-color: #e4b000;
+}
+
+.inpDanger {
+  border-color: var(--vayga-red);
+}
+
+.sel {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--vayga-text);
+  font-weight: 500;
+  padding: 11px 14px;
+  border: 1px solid rgba(12, 30, 51, 0.15);
+  border-radius: 10px;
+  background: rgba(12, 30, 51, 0.03);
+  cursor: pointer;
+  flex: 1;
+  outline: none;
+  transition: all var(--vayga-t);
+}
+
+.sel:focus {
+  border-color: #2563eb;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.addPlus {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+  border-radius: 9px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--vayga-t);
+}
+
+.addPlus:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.metaCard {
+  padding: 24px 26px;
+}
+
+.metaRow {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.metaRow .mk {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--vayga-text);
+  min-width: 150px;
+}
+
+.metaRow .mv {
+  font-family: var(--font-display), sans-serif;
+  font-size: 16px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+@media (max-width: 1150px) {
+  .twoCol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

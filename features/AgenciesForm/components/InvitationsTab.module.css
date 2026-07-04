@@ -1,0 +1,169 @@
+.panel {
+  background: var(--vayga-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  overflow: hidden;
+  margin-bottom: 22px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  /* Subtle hover lift — no pointer tilt on large table panels. */
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(12, 30, 51, 0.14), 0 6px 14px rgba(12, 30, 51, 0.08);
+}
+
+.fieldRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.fieldLbl {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vayga-text);
+  min-width: 118px;
+}
+
+.inp {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--vayga-text);
+  padding: 11px 15px;
+  border: 1px solid rgba(12, 30, 51, 0.15);
+  border-radius: 10px;
+  background: rgba(12, 30, 51, 0.03);
+  transition: all var(--vayga-t);
+  outline: none;
+}
+
+.inp::placeholder {
+  color: var(--vayga-text-4);
+}
+
+.inp:focus {
+  border-color: #2563eb;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.inpWide {
+  width: 340px;
+  max-width: 100%;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  transition: all var(--vayga-t);
+  flex-shrink: 0;
+}
+
+.iconBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 20px rgba(37, 99, 235, 0.45);
+}
+
+.iconBtn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.tblWrap {
+  padding: 4px 26px 8px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.table thead th {
+  text-align: left;
+  padding: 16px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--vayga-text-4);
+  border-bottom: 1px solid var(--vayga-border);
+  white-space: nowrap;
+}
+
+.table thead th.right {
+  text-align: right;
+}
+
+.table tbody td {
+  padding: 18px 8px;
+  font-size: 15px;
+  color: var(--vayga-text-2);
+  border-bottom: 1px solid rgba(12, 30, 51, 0.05);
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background var(--vayga-t);
+}
+
+.table tbody tr:hover {
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.cellStrong {
+  font-weight: 600;
+  color: var(--vayga-text);
+}
+
+.pillRole {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef1f6;
+  color: var(--vayga-text-2);
+  border: 1px solid var(--vayga-border);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pencilCell {
+  text-align: right;
+}
+
+.editPencil {
+  color: #2563eb;
+  cursor: pointer;
+  display: inline-flex;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform var(--vayga-t);
+}
+
+.editPencil:hover {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.editPencil svg {
+  width: 19px;
+  height: 19px;
+}

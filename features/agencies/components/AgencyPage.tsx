@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { AlignLeft, FileText } from "lucide-react";
+import { handleCardMove, handleCardLeave } from "@/features/AgenciesForm/lib/cardTilt";
 import { DashboardHeader } from "@/features/dashboard/components/DashboardHeader";
+import { PoliciesTab } from "@/features/AgenciesForm/components/PoliciesTab";
+import { QuotesTab } from "@/features/AgenciesForm/components/QuotesTab";
+import { InsuredsTab } from "@/features/AgenciesForm/components/InsuredsTab";
+import { ProspectsTab } from "@/features/AgenciesForm/components/ProspectsTab";
+import { MembersTab } from "@/features/AgenciesForm/components/MembersTab";
+import { InvitationsTab } from "@/features/AgenciesForm/components/InvitationsTab";
 import styles from "./AgencyPage.module.css";
 
 const TABS = [
@@ -13,7 +20,6 @@ const TABS = [
   "Prospects",
   "Members",
   "Invitations",
-  "Profile",
 ] as const;
 
 interface Metric {
@@ -109,27 +115,41 @@ export function AgencyPage() {
         </div>
       </div>
 
-      <div className={styles.metricGrid}>
-        {METRICS.map((metric) => {
-          const Icon = metric.icon;
-          return (
-            <div className={styles.metricCard} key={metric.id}>
-              <div className={styles.metricIcon} style={{ background: metric.iconBg, color: metric.iconColor }}>
-                <Icon />
+      {activeTab === "General" ? (
+        <div className={styles.metricGrid}>
+          {METRICS.map((metric) => {
+            const Icon = metric.icon;
+            return (
+              <div
+                className={styles.metricCard}
+                key={metric.id}
+                onMouseMove={handleCardMove}
+                onMouseLeave={handleCardLeave}
+              >
+                <div className={styles.metricIcon} style={{ background: metric.iconBg, color: metric.iconColor }}>
+                  <Icon />
+                </div>
+                <div className={styles.metricLabel}>{metric.label}</div>
+                <div className={styles.metricBar} style={{ background: metric.bar }} />
+                <div className={styles.metricCount}>{metric.count}</div>
+                <div className={styles.metricTrack}>
+                  <div
+                    className={styles.metricFill}
+                    style={{ width: `${metric.fillPercent}%`, background: metric.fill }}
+                  />
+                </div>
               </div>
-              <div className={styles.metricLabel}>{metric.label}</div>
-              <div className={styles.metricBar} style={{ background: metric.bar }} />
-              <div className={styles.metricCount}>{metric.count}</div>
-              <div className={styles.metricTrack}>
-                <div
-                  className={styles.metricFill}
-                  style={{ width: `${metric.fillPercent}%`, background: metric.fill }}
-                />
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : null}
+
+      {activeTab === "Policies" ? <PoliciesTab /> : null}
+      {activeTab === "Quotes" ? <QuotesTab /> : null}
+      {activeTab === "Insureds" ? <InsuredsTab /> : null}
+      {activeTab === "Prospects" ? <ProspectsTab /> : null}
+      {activeTab === "Members" ? <MembersTab /> : null}
+      {activeTab === "Invitations" ? <InvitationsTab /> : null}
     </div>
   );
 }

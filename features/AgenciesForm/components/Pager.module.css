@@ -1,0 +1,83 @@
+/* Pagination — centered + spread-with-rows-per-page variants. */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 20px;
+}
+
+.pagerSpread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 26px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagerInfo {
+  font-size: 13px;
+  color: var(--vayga-text-3);
+  font-weight: 600;
+}
+
+.pgGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pgBtn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 13px;
+  border: 1px solid var(--vayga-border);
+  border-radius: 9px;
+  background: rgba(12, 30, 51, 0.03);
+  color: #2563eb;
+  cursor: pointer;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--vayga-t);
+}
+
+.pgBtn:hover {
+  background: rgba(37, 99, 235, 0.09);
+  transform: translateY(-1px);
+}
+
+.pgBtn.solid {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+}
+
+.pgBtn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.rowsSel {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--vayga-text-3);
+  font-weight: 600;
+}
+
+.rowsSel select {
+  padding: 8px 10px;
+  border: 1px solid rgba(12, 30, 51, 0.15);
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--vayga-text);
+  background: #fff;
+}

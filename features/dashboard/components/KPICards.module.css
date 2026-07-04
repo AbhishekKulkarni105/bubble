@@ -3,7 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   margin-bottom: 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 .card {
@@ -55,7 +55,7 @@
 }
 
 .value {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.8px;
