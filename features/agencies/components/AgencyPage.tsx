@@ -1,210 +1,134 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import {
-  Plus,
-  Download,
-  ChevronUp,
-  Pencil,
-  X,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+import { useState } from "react";
+import { AlignLeft, FileText } from "lucide-react";
 import { DashboardHeader } from "@/features/dashboard/components/DashboardHeader";
-import tableStyles from "@/components/ui/data-table.module.css";
 import styles from "./AgencyPage.module.css";
 
-interface AgencyRow {
+const TABS = [
+  "General",
+  "Policies",
+  "Quotes",
+  "Insureds",
+  "Prospects",
+  "Members",
+  "Invitations",
+  "Profile",
+] as const;
+
+interface Metric {
   id: string;
-  name: string;
-  role: string;
-  created: string;
+  label: string;
+  count: string;
+  icon: typeof AlignLeft;
+  iconBg: string;
+  iconColor: string;
+  bar: string;
+  fill: string;
+  fillPercent: number;
 }
 
-const AGENCIES: AgencyRow[] = [
-  { id: "1", name: "AAA Insurance Group", role: "Master Admin", created: "9/18/25" },
-  { id: "2", name: "Acme Underwriters LLC", role: "Master Admin", created: "9/18/25" },
-  { id: "3", name: "Advance Insurance Partners", role: "Master Admin", created: "9/18/25" },
-  { id: "4", name: "Aegis Risk Advisors", role: "Master Admin", created: "9/18/25" },
-  { id: "5", name: "Affinity Insurance Co", role: "Master Admin", created: "9/18/25" },
-  { id: "6", name: "All Capital Insurance Inc", role: "Master Admin", created: "9/18/25" },
-  { id: "7", name: "Allegiance Insurance Services LLC", role: "Master Admin", created: "9/18/25" },
-  { id: "8", name: "Alliant Insurance Services", role: "Master Admin", created: "9/18/25" },
-  { id: "9", name: "Allines Associates Inc", role: "Master Admin", created: "9/18/25" },
-  { id: "10", name: "All-Star Insurance Inc", role: "Master Admin", created: "9/18/25" },
-  { id: "11", name: "Allsure Insurance Brokerage Inc", role: "Master Admin", created: "9/18/25" },
-  { id: "12", name: "Ally Insurance Brokers of Omaha", role: "Master Admin", created: "9/18/25" },
-  { id: "13", name: "Alpha Direct Agency LLC", role: "Master Admin", created: "9/18/25" },
-  { id: "14", name: "Alpha Insurance Agency Inc", role: "Master Admin", created: "9/18/25" },
-  { id: "15", name: "Alpha Insurance Services LLC", role: "Master Admin", created: "9/18/25" },
-  { id: "16", name: "Altamont Insurance Group, Llc", role: "Master Admin", created: "9/18/25" },
-  { id: "17", name: "Alvarado Risk Services, LLC", role: "Master Admin", created: "9/18/25" },
-  { id: "18", name: "Amac Insurance Center", role: "Master Admin", created: "9/18/25" },
-  { id: "19", name: "Ambrose Inyang Insurance Agency", role: "Master Admin", created: "9/18/25" },
-  { id: "20", name: "AMC Agents LLC", role: "Master Admin", created: "9/18/25" },
-  { id: "21", name: "American Shield Insurance", role: "Master Admin", created: "9/18/25" },
-  { id: "22", name: "Anchor Bay Underwriters", role: "Master Admin", created: "9/18/25" },
-  { id: "23", name: "Apex General Group", role: "Master Admin", created: "9/18/25" },
-  { id: "24", name: "Ardent Insurance Solutions", role: "Master Admin", created: "9/18/25" },
-  { id: "25", name: "Ascend Risk Partners", role: "Master Admin", created: "9/18/25" },
-  { id: "26", name: "Atlas Coverage Group", role: "Master Admin", created: "9/18/25" },
-  { id: "27", name: "Avalon Insurance Brokers", role: "Master Admin", created: "9/18/25" },
-  { id: "28", name: "Axiom Assurance LLC", role: "Master Admin", created: "9/18/25" },
+const METRICS: Metric[] = [
+  {
+    id: "quotes",
+    label: "Quotes",
+    count: "284 quotes created",
+    icon: AlignLeft,
+    iconBg: "var(--vayga-gold-dim)",
+    iconColor: "#b8860b",
+    bar: "linear-gradient(90deg, #f5c400, #b8860b)",
+    fill: "#f5c400",
+    fillPercent: 72,
+  },
+  {
+    id: "policies",
+    label: "Policies",
+    count: "47 policies created",
+    icon: AlignLeft,
+    iconBg: "var(--vayga-green-dim)",
+    iconColor: "var(--vayga-green)",
+    bar: "linear-gradient(90deg, #16a34a, #15803d)",
+    fill: "var(--vayga-green)",
+    fillPercent: 48,
+  },
+  {
+    id: "prospects",
+    label: "Prospects",
+    count: "63 prospects created",
+    icon: FileText,
+    iconBg: "var(--vayga-teal-dim)",
+    iconColor: "var(--vayga-teal)",
+    bar: "linear-gradient(90deg, #0891b2, #0e7490)",
+    fill: "var(--vayga-teal)",
+    fillPercent: 58,
+  },
+  {
+    id: "insureds",
+    label: "Insureds",
+    count: "38 insureds created",
+    icon: FileText,
+    iconBg: "var(--vayga-purple-dim)",
+    iconColor: "var(--vayga-purple)",
+    bar: "linear-gradient(90deg, #7c3aed, #6d28d9)",
+    fill: "var(--vayga-purple)",
+    fillPercent: 35,
+  },
 ];
 
-const PAGE_SIZE = 14;
-
 export function AgencyPage() {
-  const [advancedOpen, setAdvancedOpen] = useState(true);
-  const [nameFilter, setNameFilter] = useState("");
-  const [page, setPage] = useState(1);
-  const [selected, setSelected] = useState<Record<string, boolean>>({ "7": true });
-
-  const filtered = useMemo(() => {
-    const query = nameFilter.trim().toLowerCase();
-    if (!query) return AGENCIES;
-    return AGENCIES.filter((a) => a.name.toLowerCase().includes(query));
-  }, [nameFilter]);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const currentPage = Math.min(page, totalPages);
-  const pageRows = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-
-  const toggleSelected = (id: string) =>
-    setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
-
-  const goTo = (next: number) => setPage(Math.min(Math.max(1, next), totalPages));
+  const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>("General");
 
   return (
     <div>
-      <DashboardHeader
-        title="Agencies"
-        subtitle={`${filtered.length} agencies · All regions`}
-        actions={
-          <>
-            <button type="button" className={tableStyles.fltBtn}>
-              <Download />
-              Export
-            </button>
-            <button type="button" className={tableStyles.expBtn}>
-              <Plus />
-              Add Agency
-            </button>
-          </>
-        }
-      />
+      <nav className={styles.tabs} aria-label="Agency workspace">
+        {TABS.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ""}`}
+            aria-current={activeTab === tab ? "page" : undefined}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </nav>
 
-      <div className={styles.advanced}>
-        <button
-          type="button"
-          className={`${styles.advancedToggle} ${advancedOpen ? styles.advancedToggleOpen : ""}`}
-          onClick={() => setAdvancedOpen((open) => !open)}
-          aria-expanded={advancedOpen}
-        >
-          <ChevronUp />
-          Advanced search
-        </button>
-        {advancedOpen ? (
-          <div className={styles.advancedBody}>
-            <label className={styles.fieldLabel} htmlFor="agency-name-filter">
-              Agency name
-            </label>
-            <input
-              id="agency-name-filter"
-              className={styles.fieldInput}
-              placeholder="Search by agency name…"
-              value={nameFilter}
-              onChange={(event) => {
-                setNameFilter(event.target.value);
-                setPage(1);
-              }}
-            />
-            <button type="button" className={styles.iconBtn} aria-label="Edit search">
-              <Pencil />
-            </button>
-          </div>
-        ) : null}
+      <DashboardHeader title="All Capital Insurance Inc" subtitle="Agency workspace · MTM ID 239" />
+
+      <div className={styles.infoGrid}>
+        <div className={styles.infoCard}>
+          <div className={styles.infoTitle}>All Capital Insurance Inc</div>
+          <div className={styles.infoLabel}>Create Date</div>
+          <div className={styles.infoValue}>9/18/2025</div>
+        </div>
+        <div className={styles.infoCard}>
+          <div className={styles.infoTitle}>Creator</div>
+          <div className={styles.infoLabel}>Admin</div>
+          <div className={styles.infoValue}>Admin</div>
+        </div>
       </div>
 
-      <div className={tableStyles.panel}>
-        <div className={tableStyles.scroll}>
-          <table className={tableStyles.table}>
-            <thead>
-              <tr>
-                <th>Agency Name</th>
-                <th>My Role</th>
-                <th>Created</th>
-                <th className={styles.checkboxCell} aria-label="Select" />
-              </tr>
-            </thead>
-            <tbody>
-              {pageRows.map((agency) => {
-                const isSelected = Boolean(selected[agency.id]);
-                return (
-                  <tr key={agency.id} className={`${styles.row} ${isSelected ? styles.rowActive : ""}`}>
-                    <td>
-                      <button type="button" className={styles.agencyName}>
-                        {agency.name}
-                      </button>
-                    </td>
-                    <td>
-                      <span className={`${tableStyles.pill} ${tableStyles.pillMuted} ${styles.roleBadge}`}>
-                        <span className={tableStyles.pillDot} />
-                        {agency.role}
-                      </span>
-                    </td>
-                    <td>{agency.created}</td>
-                    <td className={styles.checkboxCell}>
-                      <button
-                        type="button"
-                        className={`${styles.selectToggle} ${isSelected ? styles.selectToggleOn : ""}`}
-                        onClick={() => toggleSelected(agency.id)}
-                        aria-label={isSelected ? "Deselect agency" : "Select agency"}
-                        aria-pressed={isSelected}
-                      >
-                        {isSelected ? <Check /> : <X />}
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-              {pageRows.length === 0 ? (
-                <tr>
-                  <td colSpan={4} style={{ textAlign: "center", padding: "32px 16px", color: "var(--vayga-text-3)" }}>
-                    No agencies match “{nameFilter}”.
-                  </td>
-                </tr>
-              ) : null}
-            </tbody>
-          </table>
-        </div>
-
-        <div className={tableStyles.foot}>
-          <div className={tableStyles.footInfo}>
-            Showing {pageRows.length} of {filtered.length} agencies
-          </div>
-          <div className={tableStyles.pagi}>
-            <button type="button" className={tableStyles.pg} onClick={() => goTo(1)} aria-label="First page">
-              <ChevronsLeft size={14} />
-            </button>
-            <button type="button" className={tableStyles.pg} onClick={() => goTo(currentPage - 1)} aria-label="Previous page">
-              <ChevronLeft size={14} />
-            </button>
-            <span className={`${tableStyles.pg} ${tableStyles.pgOn}`}>{currentPage}</span>
-            <span className={tableStyles.footInfo} style={{ alignSelf: "center", padding: "0 4px" }}>
-              from {totalPages}
-            </span>
-            <button type="button" className={tableStyles.pg} onClick={() => goTo(currentPage + 1)} aria-label="Next page">
-              <ChevronRight size={14} />
-            </button>
-            <button type="button" className={tableStyles.pg} onClick={() => goTo(totalPages)} aria-label="Last page">
-              <ChevronsRight size={14} />
-            </button>
-          </div>
-        </div>
+      <div className={styles.metricGrid}>
+        {METRICS.map((metric) => {
+          const Icon = metric.icon;
+          return (
+            <div className={styles.metricCard} key={metric.id}>
+              <div className={styles.metricIcon} style={{ background: metric.iconBg, color: metric.iconColor }}>
+                <Icon />
+              </div>
+              <div className={styles.metricLabel}>{metric.label}</div>
+              <div className={styles.metricBar} style={{ background: metric.bar }} />
+              <div className={styles.metricCount}>{metric.count}</div>
+              <div className={styles.metricTrack}>
+                <div
+                  className={styles.metricFill}
+                  style={{ width: `${metric.fillPercent}%`, background: metric.fill }}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

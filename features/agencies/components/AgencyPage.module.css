@@ -1,159 +1,146 @@
-/* Agencies page — advanced search panel + agency table row controls. */
+/* Agency workspace — tab bar, info cards, metric cards. */
 
-.advanced {
-  background: var(--vayga-glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--vayga-border);
-  border-radius: 20px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.advancedToggle {
+.tabs {
   display: flex;
   align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 16px 20px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--vayga-accent-light);
-}
-
-.advancedToggle svg {
-  width: 15px;
-  height: 15px;
-  transition: transform var(--vayga-t);
-}
-
-.advancedToggleOpen svg {
-  transform: rotate(180deg);
-}
-
-.advancedBody {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0 20px 20px;
+  gap: 6px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
-.fieldLabel {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--vayga-text-2);
-  min-width: 92px;
-}
-
-.fieldInput {
-  flex: 1;
-  min-width: 200px;
-  max-width: 420px;
-  background: rgba(12, 30, 51, 0.04);
-  border: 1px solid var(--vayga-border);
+.tab {
+  padding: 9px 18px;
   border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 13px;
-  color: var(--vayga-text);
-  font-family: inherit;
-  outline: none;
-  transition: all var(--vayga-t);
-}
-
-.fieldInput:focus {
-  border-color: var(--vayga-accent-border);
-  box-shadow: 0 0 0 3px var(--vayga-accent-dim);
-}
-
-.fieldInput::placeholder {
-  color: var(--vayga-text-4);
-}
-
-.iconBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
-  border: 1px solid #1e40af;
-  color: #fff;
-  cursor: pointer;
-  transition: all var(--vayga-t);
-  flex-shrink: 0;
-}
-
-.iconBtn:hover {
-  filter: brightness(1.1);
-}
-
-.iconBtn svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* Row name — clickable agency name (highlighted / active rows go accent) */
-.agencyName {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--vayga-text);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-  transition: color var(--vayga-t);
-}
-
-.agencyName:hover {
-  color: var(--vayga-accent-light);
-}
-
-.rowActive {
-  background: var(--vayga-accent-dim);
-}
-
-.rowActive .agencyName {
-  color: var(--vayga-accent-light);
-}
-
-/* Select toggle — X (unselected) / check (selected) */
-.selectToggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vayga-text-3);
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--vayga-text-4);
   transition: all var(--vayga-t);
 }
 
-.selectToggle:hover {
-  background: rgba(12, 30, 51, 0.06);
+.tab:hover {
+  color: var(--vayga-text);
+  background: rgba(12, 30, 51, 0.04);
+}
+
+.tabActive {
+  color: #fff;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+}
+
+.tabActive:hover {
+  color: #fff;
+}
+
+/* Info card row (agency summary + creator) */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.infoCard {
+  background: #fff;
+  border: 1px solid var(--vayga-border);
+  border-radius: 18px;
+  padding: 26px 28px;
+}
+
+.infoTitle {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vayga-text);
+  margin-bottom: 20px;
+}
+
+.infoLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vayga-text);
+  margin-bottom: 4px;
+}
+
+.infoValue {
+  font-size: 14px;
   color: var(--vayga-text-2);
 }
 
-.selectToggleOn {
-  color: var(--vayga-green);
+/* Metric card row */
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
 }
 
-.selectToggle svg {
-  width: 17px;
-  height: 17px;
+.metricCard {
+  background: #fff;
+  border: 1px solid var(--vayga-border);
+  border-radius: 18px;
+  padding: 22px;
 }
 
-.checkboxCell {
-  width: 48px;
-  text-align: right;
+.metricIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.metricIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.metricLabel {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--vayga-text-3);
+  margin-bottom: 12px;
+}
+
+.metricBar {
+  height: 30px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.metricCount {
+  font-size: 13px;
+  color: var(--vayga-text-2);
+  margin-bottom: 14px;
+}
+
+.metricTrack {
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(12, 30, 51, 0.08);
+  overflow: hidden;
+}
+
+.metricFill {
+  height: 100%;
+  border-radius: 99px;
+}
+
+@media (max-width: 1100px) {
+  .metricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .infoGrid,
+  .metricGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
