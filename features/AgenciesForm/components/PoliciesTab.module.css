@@ -192,3 +192,15 @@
   font-weight: 600;
   color: var(--vayga-text);
 }
+
+.cellLink {
+  font-weight: 600;
+  color: var(--vayga-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--vayga-t);
+}
+
+.cellLink:hover {
+  color: #2563eb;
+}

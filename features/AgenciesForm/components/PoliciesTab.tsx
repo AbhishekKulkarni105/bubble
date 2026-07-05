@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./PoliciesTab.module.css";
@@ -98,7 +99,9 @@ export function PoliciesTab() {
               {POLICIES.map((row, i) => (
                 <tr key={`${row.policyNo}-${i}`}>
                   <td>
-                    <span className={styles.cellStrong}>{row.policyNo}</span>
+                    <Link href={`/policies/${row.policyNo}`} className={styles.cellLink}>
+                      {row.policyNo}
+                    </Link>
                   </td>
                   <td>{row.eff}</td>
                   <td>{row.expire}</td>

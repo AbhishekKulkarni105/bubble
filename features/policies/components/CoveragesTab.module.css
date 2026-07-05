@@ -1,0 +1,44 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.panel {
+  background: var(--vayga-panel-bg);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  overflow: hidden;
+}
+
+.head {
+  text-align: center;
+  font-weight: 700;
+  color: var(--vayga-text);
+  padding: 16px;
+  border-bottom: 1px solid var(--vayga-border);
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+}
+
+.label {
+  color: var(--vayga-text-2);
+}
+
+.value {
+  font-weight: 600;
+  color: var(--vayga-text);
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
