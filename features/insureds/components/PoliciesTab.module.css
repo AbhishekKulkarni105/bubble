@@ -1,26 +1,9 @@
-.panel {
-  background: var(--vayga-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--vayga-border);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
-  overflow: hidden;
-  margin-bottom: 22px;
-  font-family: var(--font-sans), system-ui, sans-serif;
-  /* Subtle hover lift — no pointer tilt on large table panels. */
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.panel:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 36px rgba(12, 30, 51, 0.14), 0 6px 14px rgba(12, 30, 51, 0.08);
-}
-
 .asGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1.3fr 0.9fr 1.1fr;
   gap: 22px 40px;
   align-items: start;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 .asCol {
@@ -35,8 +18,10 @@
   gap: 14px;
 }
 
-.asLine .inp {
+.asLine .inp,
+.asLine .sel {
   flex: 1;
+  min-width: 0;
 }
 
 .fieldLbl {
@@ -51,7 +36,7 @@
   font-size: 14px;
   color: var(--vayga-text);
   padding: 11px 15px;
-  border: 1px solid rgba(12, 30, 51, 0.15);
+  border: 1px solid var(--vayga-border-2);
   border-radius: 10px;
   background: rgba(12, 30, 51, 0.03);
   transition: all var(--vayga-t);
@@ -74,7 +59,7 @@
   color: var(--vayga-text);
   font-weight: 500;
   padding: 11px 38px 11px 14px;
-  border: 1px solid rgba(12, 30, 51, 0.15);
+  border: 1px solid var(--vayga-border-2);
   border-radius: 10px;
   background-color: rgba(12, 30, 51, 0.03);
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='14'%20height='14'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%2394a5b6'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpolyline%20points='6%209%2012%2015%2018%209'/%3E%3C/svg%3E");
@@ -83,7 +68,6 @@
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
-  flex: 1;
   outline: none;
   transition: all var(--vayga-t);
 }
@@ -94,54 +78,43 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
 }
 
-.tblWrap {
-  padding: 4px 26px 8px;
-  overflow-x: auto;
+.panel {
+  background: var(--vayga-panel-bg);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 720px;
-}
-
-.table thead th {
-  text-align: left;
-  padding: 16px 8px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.9px;
-  text-transform: uppercase;
-  color: var(--vayga-text-4);
-  border-bottom: 1px solid var(--vayga-border);
-  white-space: nowrap;
-}
-
-.table tbody td {
-  padding: 18px 8px;
-  font-size: 15px;
-  color: var(--vayga-text-2);
-  border-bottom: 1px solid rgba(12, 30, 51, 0.05);
-  vertical-align: middle;
-}
-
-.table tbody tr {
-  transition: background var(--vayga-t);
-}
-
-.table tbody tr:hover {
-  background: rgba(37, 99, 235, 0.03);
-}
-
-.cellStrong {
+.emptyPanel {
+  padding: 24px 26px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 18px;
   font-weight: 600;
   color: var(--vayga-text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.rowLink {
-  cursor: pointer;
-}
-
-.rowLink:hover .cellStrong {
+.emptyIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #2563eb;
+}
+
+.emptyIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 1100px) {
+  .asGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

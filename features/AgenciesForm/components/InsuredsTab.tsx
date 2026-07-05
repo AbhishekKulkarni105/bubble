@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./InsuredsTab.module.css";
@@ -26,6 +29,8 @@ const INSUREDS: EntityRow[] = [
 ];
 
 export function InsuredsTab() {
+  const router = useRouter();
+
   return (
     <div>
       <AdvancedSearch>
@@ -69,7 +74,11 @@ export function InsuredsTab() {
             </thead>
             <tbody>
               {INSUREDS.map((row, i) => (
-                <tr key={`${row.company}-${i}`}>
+                <tr
+                  key={`${row.company}-${i}`}
+                  className={styles.rowLink}
+                  onClick={() => router.push(`/insureds/${i + 1}`)}
+                >
                   <td>
                     <span className={styles.cellStrong}>{row.company}</span>
                   </td>

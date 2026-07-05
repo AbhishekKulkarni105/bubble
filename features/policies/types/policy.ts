@@ -42,6 +42,8 @@ export interface PolicyDetail {
   expireDate: string;
   bindDate: string;
   insured: {
+    /** Links the policy to the insured detail screen at /insureds/[id]. */
+    id: string;
     name: string;
     state: string;
     phone: string;
@@ -73,6 +75,7 @@ export function getPolicy(id: string): PolicyDetail {
     expireDate: "8/15/2025",
     bindDate: "8/15/2025",
     insured: {
+      id: "1",
       name: "Vlad test",
       state: "Alabama",
       phone: "(773) 556-6777",
