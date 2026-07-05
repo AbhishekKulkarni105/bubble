@@ -208,6 +208,18 @@
   font-size: 13px;
 }
 
+.cellLink {
+  font-weight: 600;
+  color: var(--vayga-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--vayga-t);
+}
+
+.cellLink:hover {
+  color: #2563eb;
+}
+
 .moreCell {
   text-align: right;
   color: var(--vayga-text-4);

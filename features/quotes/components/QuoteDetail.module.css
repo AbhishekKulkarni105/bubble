@@ -1,0 +1,118 @@
+.backBtn {
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(12, 30, 51, 0.04);
+  border: 1px solid var(--vayga-border);
+  border-radius: 9px;
+  color: var(--vayga-text-2);
+  cursor: pointer;
+  transition: all var(--vayga-t);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.backBtn:hover {
+  background: rgba(12, 30, 51, 0.08);
+  border-color: var(--vayga-border-2);
+  color: var(--vayga-text);
+}
+
+.backBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vayga-text-3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--vayga-t);
+}
+
+.tab:hover {
+  color: var(--vayga-text);
+  background: rgba(12, 30, 51, 0.04);
+}
+
+.tabActive {
+  color: #fff;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+  box-shadow: 0 3px 12px rgba(37, 99, 235, 0.32);
+}
+
+.tabActive:hover {
+  color: #fff;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 26px 0 8px;
+}
+
+.qbtn {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 24px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(12, 30, 51, 0.16);
+  transition: all var(--vayga-t) var(--vayga-ease);
+}
+
+.qbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(12, 30, 51, 0.22);
+}
+
+.qbtnOrange {
+  background: linear-gradient(135deg, #eba53e, #dd8f1f);
+}
+
+.qbtnTeal {
+  background: linear-gradient(135deg, #54a9b9, #3e93a3);
+}
+
+.qbtnYellow {
+  background: #f7f0c6;
+  color: var(--vayga-text);
+}
+
+.qbtnBlue {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #1e40af);
+}
+
+.callNote {
+  text-align: center;
+  color: var(--vayga-teal);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 14px 0 4px;
+}

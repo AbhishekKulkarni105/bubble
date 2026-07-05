@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Pencil, Search, MoreHorizontal } from "lucide-react";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
@@ -115,7 +116,9 @@ export function QuotesTab() {
               {QUOTES.map((row, i) => (
                 <tr key={`${row.quoteId}-${i}`}>
                   <td>
-                    <div className={styles.cellStrong}>{row.quoteId}</div>
+                    <Link href={`/quotes/${row.quoteId}`} className={styles.cellLink}>
+                      {row.quoteId}
+                    </Link>
                     <div className={styles.cellSub}>{row.proposal}</div>
                   </td>
                   <td>{row.insured}</td>

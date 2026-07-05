@@ -1,0 +1,109 @@
+.panel {
+  background: var(--vayga-panel-bg);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  padding: 26px 30px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.filterStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  background: var(--vayga-teal-dim);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+
+.filterCell label {
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--vayga-text);
+}
+
+.sel {
+  width: 100%;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--vayga-text);
+  font-weight: 500;
+  padding: 11px 14px;
+  border: 1px solid var(--vayga-border-2);
+  border-radius: var(--vayga-radius-sm);
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: all var(--vayga-t);
+}
+
+.sel:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.listHead {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--vayga-text);
+  padding: 12px;
+  border-bottom: 2px solid var(--vayga-border-2);
+  margin-bottom: 16px;
+}
+
+.vehicleCard {
+  background: #fff;
+  border: 1px solid var(--vayga-border-2);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.vehicleCard:last-child {
+  margin-bottom: 0;
+}
+
+.cardIndex {
+  color: #2563eb;
+  font-weight: 800;
+}
+
+.truckIcon {
+  margin-top: 10px;
+  font-size: 19px;
+}
+
+.kvGrid {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 170px minmax(0, 1fr);
+  gap: 10px 14px;
+  font-size: 13.5px;
+  align-items: center;
+}
+
+.kvGrid b {
+  font-weight: 700;
+  color: var(--vayga-text);
+}
+
+.kvGrid span {
+  color: var(--vayga-text-2);
+}
+
+@media (max-width: 1150px) {
+  .filterStrip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kvGrid {
+    grid-template-columns: 130px minmax(0, 1fr);
+  }
+}
