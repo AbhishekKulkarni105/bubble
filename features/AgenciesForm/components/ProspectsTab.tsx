@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./ProspectsTab.module.css";
@@ -26,6 +29,8 @@ const PROSPECTS: EntityRow[] = [
 ];
 
 export function ProspectsTab() {
+  const router = useRouter();
+
   return (
     <div>
       <AdvancedSearch>
@@ -69,7 +74,11 @@ export function ProspectsTab() {
             </thead>
             <tbody>
               {PROSPECTS.map((row, i) => (
-                <tr key={`${row.company}-${i}`}>
+                <tr
+                  key={`${row.company}-${i}`}
+                  className={styles.rowLink}
+                  onClick={() => router.push(`/prospects/${i + 1}`)}
+                >
                   <td>
                     <span className={styles.cellStrong}>{row.company}</span>
                   </td>

@@ -9,10 +9,12 @@ interface AdvancedSearchProps {
   aside?: ReactNode;
   children: ReactNode;
   defaultOpen?: boolean;
+  /** Header text — defaults to "Advanced search" (e.g. "Filters" on sub-lists). */
+  label?: string;
 }
 
 /** Collapsible "Advanced search" panel shared by the agency workspace tabs. */
-export function AdvancedSearch({ aside, children, defaultOpen = true }: AdvancedSearchProps) {
+export function AdvancedSearch({ aside, children, defaultOpen = true, label = "Advanced search" }: AdvancedSearchProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   const header = (
@@ -20,7 +22,7 @@ export function AdvancedSearch({ aside, children, defaultOpen = true }: Advanced
       <span className={`${styles.chev} ${open ? "" : styles.chevClosed}`}>
         <ChevronUp size={20} strokeWidth={2.4} />
       </span>
-      Advanced search
+      {label}
     </button>
   );
 

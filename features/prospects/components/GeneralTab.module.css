@@ -1,0 +1,103 @@
+.twoCol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.panel {
+  background: var(--vayga-panel-bg);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  padding: 22px 24px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 13px 16px;
+  font-size: 14px;
+}
+
+.key {
+  font-weight: 700;
+  color: var(--vayga-text);
+}
+
+.val {
+  color: var(--vayga-text-2);
+}
+
+.muted {
+  color: var(--vayga-text-3);
+}
+
+.actionPanel {
+  padding: 16px 24px;
+  margin-bottom: 20px;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(12, 30, 51, 0.04);
+  border: 1px solid var(--vayga-border);
+  border-radius: 10px;
+  color: var(--vayga-text-2);
+  cursor: pointer;
+  transition: all var(--vayga-t);
+  font-family: inherit;
+}
+
+.btnGhost:hover {
+  background: rgba(12, 30, 51, 0.08);
+  color: var(--vayga-text);
+}
+
+.btnGhost svg {
+  width: 15px;
+  height: 15px;
+}
+
+.blockTitle {
+  font-weight: 700;
+  color: var(--vayga-text);
+  margin-bottom: 12px;
+}
+
+.emptyNote {
+  color: var(--vayga-text-3);
+}
+
+.contactsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.contactCols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  font-size: 14px;
+}
+
+.subKey {
+  font-weight: 700;
+  color: var(--vayga-text-2);
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .twoCol,
+  .contactsGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
