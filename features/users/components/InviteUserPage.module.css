@@ -1,0 +1,134 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.card {
+  background: var(--vayga-glass, #fff);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--vayga-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(12, 30, 51, 0.05);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.banner {
+  background: linear-gradient(135deg, #33459c, #4a5bc4);
+  border-radius: 12px;
+  padding: 22px 26px;
+  text-align: center;
+  color: #fff;
+}
+
+.bannerTitle {
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.bannerLink {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  font-style: italic;
+  word-break: break-all;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vayga-text);
+}
+
+.input {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--vayga-text);
+  padding: 12px 15px;
+  border: 1px solid rgba(12, 30, 51, 0.15);
+  border-radius: 10px;
+  background: rgba(12, 30, 51, 0.03);
+  outline: none;
+  transition: all var(--vayga-t);
+}
+
+.input::placeholder {
+  color: var(--vayga-text-4);
+}
+
+.input:focus {
+  border-color: #2563eb;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.textarea {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--vayga-text-2);
+  padding: 14px 16px;
+  border: 1px solid rgba(12, 30, 51, 0.15);
+  border-radius: 10px;
+  background: rgba(12, 30, 51, 0.03);
+  outline: none;
+  min-height: 250px;
+  resize: vertical;
+  transition: all var(--vayga-t);
+}
+
+.textarea:focus {
+  border-color: #2563eb;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.btnPrimary {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  cursor: pointer;
+  transition: all var(--vayga-t);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+.btnDisabled {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vayga-text-4);
+  padding: 13px 18px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(12, 30, 51, 0.06);
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

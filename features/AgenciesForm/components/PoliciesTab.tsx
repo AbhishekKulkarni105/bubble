@@ -40,10 +40,22 @@ export function PoliciesTab() {
               <input className={styles.inp} placeholder="search by names" />
             </div>
           </div>
-          <div className={styles.stack}>
-            <span className={styles.fieldLbl}>Eff. Date</span>
-            <span className={styles.fieldLbl}>Expire Date</span>
-            <span className={styles.fieldLbl}>Bind Date</span>
+          <div className={styles.dateCol}>
+            {(["Eff. Date", "Expire Date", "Bind Date"] as const).map((label) => (
+              <div key={label} className={styles.dateField}>
+                <span className={styles.fieldLbl}>{label}</span>
+                <div className={styles.dateRange}>
+                  <label className={styles.dateSub}>
+                    <span>From</span>
+                    <input className={styles.dateInp} type="date" aria-label={`${label} from`} />
+                  </label>
+                  <label className={styles.dateSub}>
+                    <span>To</span>
+                    <input className={styles.dateInp} type="date" aria-label={`${label} to`} />
+                  </label>
+                </div>
+              </div>
+            ))}
           </div>
           <div className={styles.asCol}>
             <div className={styles.asLine}>

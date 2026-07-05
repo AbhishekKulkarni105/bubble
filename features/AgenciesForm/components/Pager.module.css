@@ -73,11 +73,17 @@
 }
 
 .rowsSel select {
-  padding: 8px 10px;
+  padding: 11px 38px 11px 14px;
   border: 1px solid rgba(12, 30, 51, 0.15);
-  border-radius: 8px;
+  border-radius: 10px;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 600;
   color: var(--vayga-text);
-  background: #fff;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='14'%20height='14'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%2394a5b6'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpolyline%20points='6%209%2012%2015%2018%209'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  appearance: none;
+  -webkit-appearance: none;
 }
