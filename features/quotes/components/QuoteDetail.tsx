@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { DashboardHeader } from "@/features/dashboard/components/DashboardHeader";
+import { downloadQuotePdf } from "../lib/quotePdf";
 import { QUOTE_TABS, type QuoteDetail as QuoteDetailModel, type QuoteTab } from "../types/quote";
 import { SummaryTab } from "./SummaryTab";
 import { DriversTab } from "./DriversTab";
@@ -14,7 +16,22 @@ import { JsonTab } from "./JsonTab";
 import styles from "./QuoteDetail.module.css";
 
 export function QuoteDetail({ quote }: { quote: QuoteDetailModel }) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<QuoteTab>("Summary");
+  const [emailOpen, setEmailOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+
+  function sendEmail() {
+    if (!email.trim()) return;
+    setEmailSent(true);
+  }
+
+  function closeEmail() {
+    setEmailOpen(false);
+    setEmailSent(false);
+    setEmail("");
+  }
 
   return (
     <div>
@@ -54,18 +71,66 @@ export function QuoteDetail({ quote }: { quote: QuoteDetailModel }) {
 
       {activeTab !== "Application Form" ? (
         <div className={styles.actions}>
-          <button type="button" className={`${styles.qbtn} ${styles.qbtnOrange}`}>
+          <button
+            type="button"
+            className={`${styles.qbtn} ${styles.qbtnOrange}`}
+            onClick={() => setEmailOpen(true)}
+          >
             Email me quote
           </button>
-          <button type="button" className={`${styles.qbtn} ${styles.qbtnTeal}`}>
+          <button
+            type="button"
+            className={`${styles.qbtn} ${styles.qbtnTeal}`}
+            onClick={() => downloadQuotePdf(quote)}
+          >
             Download quote
           </button>
-          <button type="button" className={`${styles.qbtn} ${styles.qbtnYellow}`}>
+          <button
+            type="button"
+            className={`${styles.qbtn} ${styles.qbtnYellow}`}
+            onClick={() => router.push(`/quotes/new?edit=${quote.quoteId}`)}
+          >
             Edit quote
           </button>
           <Link href="/quotes/new" className={`${styles.qbtn} ${styles.qbtnBlue}`}>
             Start new quote
           </Link>
+        </div>
+      ) : null}
+
+      {emailOpen ? (
+        <div className={styles.modalOverlay} onClick={closeEmail}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            {emailSent ? (
+              <p className={styles.modalSent}>
+                Quote sent to <strong>{email}</strong>.
+              </p>
+            ) : (
+              <input
+                type="email"
+                className={styles.modalInput}
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoFocus
+              />
+            )}
+            <div className={styles.modalActions}>
+              <button type="button" className={styles.modalClose} onClick={closeEmail}>
+                Close
+              </button>
+              {!emailSent ? (
+                <button
+                  type="button"
+                  className={styles.modalSend}
+                  onClick={sendEmail}
+                  disabled={!email.trim()}
+                >
+                  Send
+                </button>
+              ) : null}
+            </div>
+          </div>
         </div>
       ) : null}
 

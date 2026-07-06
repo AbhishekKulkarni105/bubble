@@ -45,13 +45,17 @@ export function InsuredsTab() {
               <select className={styles.sel} defaultValue="">
                 <option value="">Choose an option…</option>
                 <option>Active</option>
+                <option>Renew</option>
+                <option>Expire</option>
+                <option>Cancelled</option>
               </select>
             </div>
             <div className={styles.asLine}>
               <span className={styles.fieldLbl}>Line of Business</span>
               <select className={styles.sel} defaultValue="">
                 <option value="">Choose an option…</option>
-                <option>Cargo</option>
+                <option>Common Auto</option>
+                <option>Personal Auto</option>
               </select>
             </div>
           </div>

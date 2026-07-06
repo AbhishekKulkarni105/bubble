@@ -84,7 +84,8 @@ export function QuotesTab() {
           <div className={styles.qCell}>
             <select className={styles.sel} defaultValue="All (uploaded files)">
               <option>All (uploaded files)</option>
-              <option>With files</option>
+              <option>Has Upload file</option>
+              <option>No Upload Files</option>
             </select>
           </div>
           <div className={styles.qCell}>

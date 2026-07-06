@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   ArrowRight,
   ShieldCheck,
@@ -12,6 +13,7 @@ import {
   Printer,
   AlertCircle,
 } from "lucide-react";
+import { getQuote, type QuoteDetail } from "@/features/quotes/types/quote";
 import styles from "./wizard.module.css";
 
 const STEPS = [
@@ -93,53 +95,122 @@ function formatCurrency(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US");
 }
 
+/** Reads a value from the quote's summary fields by label. */
+function summaryValue(quote: QuoteDetail, label: string): string {
+  const found = quote.summaryFields.find((f) => f.label === label);
+  const v = found?.value ?? "";
+  return v === "N/A" ? "" : v;
+}
+
+const LEGAL_ENTITY_MAP: Record<string, string> = {
+  LLC: "llc",
+  "Sole Proprietor": "sole",
+  Individual: "individual",
+  Partnership: "partnership",
+  Corporation: "corporation",
+};
+const TRUCKING_TYPE_MAP: Record<string, string> = {
+  Common: "common",
+  Contract: "contract",
+  Moving: "moving",
+  "Non-Trucking": "non-trucking",
+  Private: "private",
+};
+const LIABILITY_MAP: Record<string, string> = {
+  "$750,000": "750k",
+  "$1,000,000": "1m",
+  "$2,000,000": "2m",
+  "$5,000,000": "5m",
+};
+
 export default function NewQuotePage() {
-  const [step, setStep] = useState(0);
+  return (
+    <Suspense fallback={null}>
+      <NewQuoteWizard />
+    </Suspense>
+  );
+}
+
+function NewQuoteWizard() {
+  const searchParams = useSearchParams();
+  const editId = searchParams.get("edit");
+  const prefill = editId ? getQuote(editId) : null;
+
+  const [step, setStep] = useState(prefill ? 1 : 0);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  const ownerNameParts = prefill ? prefill.owner.name.split(" ") : [];
+
   // Step 1 — company
-  const [companyName, setCompanyName] = useState("");
-  const [dba, setDba] = useState("");
-  const [dotNumber, setDotNumber] = useState("");
-  const [mcNumber, setMcNumber] = useState("");
-  const [legalEntity, setLegalEntity] = useState("llc");
-  const [truckingType, setTruckingType] = useState("common");
+  const [companyName, setCompanyName] = useState(prefill ? summaryValue(prefill, "Company Name") : "");
+  const [dba, setDba] = useState(prefill ? summaryValue(prefill, "DBA") : "");
+  const [dotNumber, setDotNumber] = useState(prefill ? summaryValue(prefill, "DOT Number") : "");
+  const [mcNumber, setMcNumber] = useState(prefill ? summaryValue(prefill, "MC Number") : "");
+  const [legalEntity, setLegalEntity] = useState(
+    prefill ? LEGAL_ENTITY_MAP[summaryValue(prefill, "Legal Entity")] ?? "llc" : "llc"
+  );
+  const [truckingType, setTruckingType] = useState(
+    prefill ? TRUCKING_TYPE_MAP[summaryValue(prefill, "Trucking Company Type")] ?? "common" : "common"
+  );
   const [duiViolations, setDuiViolations] = useState("no");
 
   // Step 2 — address
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [county, setCounty] = useState("");
-  const [zip, setZip] = useState("");
+  const [address, setAddress] = useState(prefill ? summaryValue(prefill, "Address Insured") : "");
+  const [city, setCity] = useState(prefill ? summaryValue(prefill, "City Insured") : "");
+  const [state, setState] = useState(prefill ? prefill.state : "");
+  const [county, setCounty] = useState(prefill ? summaryValue(prefill, "County Insured") : "");
+  const [zip, setZip] = useState(prefill ? summaryValue(prefill, "ZIP Code Insured") : "");
 
   // Step 3 — coverage
-  const [liabilityLimit, setLiabilityLimit] = useState("");
+  const [liabilityLimit, setLiabilityLimit] = useState(
+    prefill ? LIABILITY_MAP[summaryValue(prefill, "Liability Limit")] ?? "" : ""
+  );
   const [effectiveDate, setEffectiveDate] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [anyDriverOos, setAnyDriverOos] = useState(false);
-  const [coverages, setCoverages] = useState<Record<string, boolean>>({
-    autos: true,
-    general: false,
-    uiia: false,
-  });
+  const [coverages, setCoverages] = useState<Record<string, boolean>>(
+    prefill
+      ? {
+          autos: true,
+          general: summaryValue(prefill, "General Liability") === "Selected",
+          uiia: summaryValue(prefill, "UIIA") === "Selected",
+        }
+      : { autos: true, general: false, uiia: false }
+  );
 
   // Step 5 — owner
-  const [ownerFirst, setOwnerFirst] = useState("");
-  const [ownerLast, setOwnerLast] = useState("");
-  const [ownerEmail, setOwnerEmail] = useState("");
-  const [ownerPhone, setOwnerPhone] = useState("");
-  const [bizYear, setBizYear] = useState("");
-  const [ownerExp, setOwnerExp] = useState("");
+  const [ownerFirst, setOwnerFirst] = useState(ownerNameParts[0] ?? "");
+  const [ownerLast, setOwnerLast] = useState(ownerNameParts.slice(1).join(" "));
+  const [ownerEmail, setOwnerEmail] = useState(prefill ? prefill.owner.email : "");
+  const [ownerPhone, setOwnerPhone] = useState(prefill ? prefill.owner.phone : "");
+  const [bizYear, setBizYear] = useState(prefill ? summaryValue(prefill, "Year Established") : "");
+  const [ownerExp, setOwnerExp] = useState(prefill ? summaryValue(prefill, "Owner`s Experience") : "");
   const [ownerDob, setOwnerDob] = useState("");
   const [ownerIsDriver, setOwnerIsDriver] = useState("no");
 
   // Step 6 — commodities
-  const [commodities, setCommodities] = useState<Set<string>>(new Set());
+  const [commodities, setCommodities] = useState<Set<string>>(
+    prefill
+      ? new Set(
+          [summaryValue(prefill, "Commodity 1"), summaryValue(prefill, "Commodity 2")].filter(Boolean)
+        )
+      : new Set()
+  );
 
   // Step 7 — vehicles
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>(
+    prefill
+      ? prefill.vehicles.map((v) => ({
+          vin: v.vin,
+          year: v.year,
+          type: v.type,
+          make: v.make,
+          radius: v.operatingRadius,
+          team: v.teamDriver.toLowerCase() === "yes" ? "yes" : "no",
+        }))
+      : []
+  );
   const [vehicleDraft, setVehicleDraft] = useState<Vehicle>(EMPTY_VEHICLE);
 
   // Step 8 — cargo
@@ -148,7 +219,24 @@ export default function NewQuotePage() {
   const [cargoDeductible, setCargoDeductible] = useState("1000");
 
   // Step 9 — drivers
-  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [drivers, setDrivers] = useState<Driver[]>(
+    prefill
+      ? prefill.drivers.map((d) => {
+          const parts = d.names.split(" ");
+          return {
+            first: parts[0] === "—" ? "" : parts[0] ?? "",
+            last: parts.slice(1).join(" "),
+            dob: "",
+            state: d.state === "N/A" ? "" : d.state,
+            license: d.licenseNumber === "N/A" ? "" : d.licenseNumber,
+            licenseClass: d.licenseClass.toLowerCase(),
+            licenseDate: "",
+            valid: "yes",
+            violations: [],
+          };
+        })
+      : []
+  );
   const [driverDraft, setDriverDraft] = useState<Driver>(EMPTY_DRIVER);
   const [violationPick, setViolationPick] = useState("");
 
