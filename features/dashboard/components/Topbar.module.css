@@ -13,6 +13,30 @@
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid var(--vayga-border);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--vayga-text-2);
+  cursor: pointer;
+  transition: background var(--vayga-t, 0.2s) var(--vayga-ease, ease);
+}
+
+.hamburger:hover {
+  background: var(--vayga-accent-dim);
+}
+
+.hamburger svg {
+  width: 20px;
+  height: 20px;
+}
+
 .breadcrumb {
   flex: 1;
   display: flex;
@@ -236,6 +260,23 @@
   }
 
   .profileName {
+    display: none;
+  }
+}
+
+/* Phone: reveal the hamburger, tighten padding, hide the wide date range. */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .hamburger {
+    display: inline-flex;
+  }
+
+  .dateBtn,
+  .divider {
     display: none;
   }
 }

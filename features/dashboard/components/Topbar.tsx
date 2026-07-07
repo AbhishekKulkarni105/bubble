@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Search, CalendarDays, Sun, Moon } from "lucide-react";
+import { Search, CalendarDays, Sun, Moon, Menu } from "lucide-react";
 import { LogoutButton } from "@/features/auth/components/logout-button";
 import { NotificationPanel } from "./NotificationPanel";
+import { useUIStore } from "@/stores/ui-store";
 import styles from "./Topbar.module.css";
 
 interface TopbarProps {
@@ -33,6 +34,7 @@ function useBreadcrumb() {
 
 export function Topbar({ userEmail }: TopbarProps) {
   const crumbs = useBreadcrumb();
+  const toggleMobileNav = useUIStore((s) => s.toggleMobileNav);
   const [isLight, setIsLight] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -51,6 +53,15 @@ export function Topbar({ userEmail }: TopbarProps) {
 
   return (
     <header className={styles.topbar}>
+      <button
+        type="button"
+        className={styles.hamburger}
+        onClick={toggleMobileNav}
+        aria-label="Open navigation menu"
+      >
+        <Menu />
+      </button>
+
       <div className={styles.breadcrumb}>
         {crumbs.map((crumb, i) => (
           <span key={`${crumb.label}-${i}`} className={crumb.active ? styles.active : undefined}>

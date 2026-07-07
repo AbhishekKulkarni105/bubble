@@ -15,6 +15,7 @@ import {
   Plus,
 } from "lucide-react";
 import type { NavSection } from "../types/dashboard.types";
+import { useUIStore } from "@/stores/ui-store";
 import styles from "./Sidebar.module.css";
 
 const NAV_SECTIONS: NavSection[] = [
@@ -45,9 +46,17 @@ function isActivePath(pathname: string, href: string) {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const mobileNavOpen = useUIStore((s) => s.mobileNavOpen);
+  const closeMobileNav = useUIStore((s) => s.closeMobileNav);
 
   return (
-    <aside className={styles.sidebar}>
+    <>
+      <div
+        className={`${styles.overlay} ${mobileNavOpen ? styles.overlayVisible : ""}`}
+        onClick={closeMobileNav}
+        aria-hidden="true"
+      />
+      <aside className={`${styles.sidebar} ${mobileNavOpen ? styles.sidebarOpen : ""}`}>
       <div className={styles.logoRow}>
         <div className={styles.logoChip}>
           <Image
@@ -73,6 +82,7 @@ export function Sidebar() {
                   href={item.href as Route}
                   className={`${styles.navItem} ${active ? styles.navItemActive : ""}`}
                   aria-current={active ? "page" : undefined}
+                  onClick={closeMobileNav}
                 >
                   <Icon className={styles.navIcon} />
                   <span>{item.label}</span>
@@ -85,11 +95,12 @@ export function Sidebar() {
       </nav>
 
       <div className={styles.footer}>
-        <Link href="/quotes/new" className={styles.getQuoteBtn}>
+        <Link href="/quotes/new" className={styles.getQuoteBtn} onClick={closeMobileNav}>
           <Plus size={14} strokeWidth={2.5} />
           Get Quote
         </Link>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }
