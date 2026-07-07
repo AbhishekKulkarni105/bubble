@@ -1,15 +1,58 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import { Mail } from "lucide-react";
 import type { InsuredDetail } from "../types/insured";
 import styles from "./GeneralTab.module.css";
 
 const DASH = "—";
+const FALLBACK_EMAILS = ["dobrinski+t1@gmail.com"];
 
 function show(value: string) {
   return value ? value : DASH;
 }
 
-export function GeneralTab({ insured }: { insured: InsuredDetail }) {
+export function GeneralTab({
+  insured,
+  agencyName = "Morpheus Ins",
+}: {
+  insured: InsuredDetail;
+  agencyName?: string;
+}) {
   const { owner } = insured;
+
+  const emailOptions = useMemo(() => {
+    const all = [...insured.companyEmails, ...insured.ownerEmails]
+      .map((e) => e.trim())
+      .filter(Boolean);
+    const unique = Array.from(new Set(all));
+    return unique.length > 0 ? unique : FALLBACK_EMAILS;
+  }, [insured.companyEmails, insured.ownerEmails]);
+
+  const [emailOpen, setEmailOpen] = useState(false);
+  const [useOther, setUseOther] = useState(false);
+  const [selectedEmail, setSelectedEmail] = useState(emailOptions[0]);
+  const [otherEmail, setOtherEmail] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const recipient = useOther ? otherEmail.trim() : selectedEmail;
+
+  function openEmail() {
+    setSelectedEmail(emailOptions[0]);
+    setUseOther(false);
+    setOtherEmail("");
+    setSent(false);
+    setEmailOpen(true);
+  }
+
+  function closeEmail() {
+    setEmailOpen(false);
+  }
+
+  function sendLink() {
+    if (!recipient) return;
+    setSent(true);
+  }
 
   return (
     <div>
@@ -50,7 +93,7 @@ export function GeneralTab({ insured }: { insured: InsuredDetail }) {
       </div>
 
       <div className={`${styles.panel} ${styles.actionPanel}`}>
-        <button type="button" className={styles.btnGhost}>
+        <button type="button" className={styles.btnGhost} onClick={openEmail}>
           <Mail />
           Email a link for new quote
         </button>
@@ -89,6 +132,78 @@ export function GeneralTab({ insured }: { insured: InsuredDetail }) {
           </div>
         </div>
       </div>
+
+      {emailOpen ? (
+        <div className={styles.modalOverlay} onClick={closeEmail}>
+          <div
+            className={styles.modal}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Send quote link"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {sent ? (
+              <p className={styles.modalSent}>
+                Quote link sent to <strong>{recipient}</strong>.
+              </p>
+            ) : (
+              <>
+                <div className={styles.modalTitle}>
+                  Send quote link from {agencyName} to :
+                </div>
+
+                {useOther ? (
+                  <input
+                    type="email"
+                    className={styles.modalInput}
+                    placeholder="Email address"
+                    value={otherEmail}
+                    onChange={(e) => setOtherEmail(e.target.value)}
+                    autoFocus
+                  />
+                ) : (
+                  <select
+                    className={styles.modalSelect}
+                    value={selectedEmail}
+                    onChange={(e) => setSelectedEmail(e.target.value)}
+                  >
+                    {emailOptions.map((email) => (
+                      <option key={email} value={email}>
+                        {email}
+                      </option>
+                    ))}
+                  </select>
+                )}
+
+                <button
+                  type="button"
+                  className={styles.modalToggle}
+                  onClick={() => setUseOther((v) => !v)}
+                >
+                  {useOther ? "Choose from list" : "Send to other email"}
+                </button>
+              </>
+            )}
+
+            <div className={styles.modalActions}>
+              {sent ? (
+                <button type="button" className={styles.modalSend} onClick={closeEmail}>
+                  Close
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className={styles.modalSend}
+                  onClick={sendLink}
+                  disabled={!recipient}
+                >
+                  Send
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

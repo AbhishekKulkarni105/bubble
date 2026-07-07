@@ -32,6 +32,8 @@ export function PoliciesTab() {
                 <option value="">Choose an option…</option>
                 <option>Active</option>
                 <option>Expired</option>
+                <option>Renew</option>
+                <option>Canceled</option>
               </select>
             </div>
             <div className={styles.asLine}>
@@ -39,7 +41,7 @@ export function PoliciesTab() {
               <select className={styles.sel} defaultValue="">
                 <option value="">Choose an option…</option>
                 <option>Comm Auto</option>
-                <option>Cargo</option>
+                <option>Personal Auto</option>
               </select>
             </div>
           </div>

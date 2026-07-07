@@ -26,9 +26,19 @@ export function VehiclesTab() {
               <label className={styles.label}>Make</label>
               <select className={styles.sel} defaultValue="">
                 <option value="">Select make</option>
+                <option>Custom</option>
+                <option>Caterpillar</option>
                 <option>Freightliner</option>
-                <option>Volvo</option>
+                <option>GMC</option>
+                <option>Hino</option>
+                <option>International</option>
+                <option>Kenworth</option>
+                <option>Mack</option>
+                <option>Oshkosh Truck</option>
                 <option>Peterbilt</option>
+                <option>Volvo</option>
+                <option>Western Star</option>
+                <option>Nikola</option>
               </select>
             </div>
             <div className={styles.formRow}>
@@ -48,7 +58,7 @@ export function VehiclesTab() {
               <select className={styles.sel} defaultValue="Truck Tractor">
                 <option>Truck Tractor</option>
                 <option>Trailer</option>
-                <option>Straight Truck</option>
+                <option>Light/Box Truck</option>
               </select>
             </div>
           </div>
@@ -85,9 +95,9 @@ export function VehiclesTab() {
               <label className={`${styles.label} ${styles.required}`}>Operating Radius</label>
               <select className={styles.sel} defaultValue="">
                 <option value="">Radius</option>
-                <option>0–50 mi</option>
-                <option>51–200 mi</option>
-                <option>200+ mi</option>
+                <option>Long Class (over 200 miles)</option>
+                <option>Intermediate Class (51 to 200 mi.)</option>
+                <option>Short Class (under 50 miles)</option>
               </select>
             </div>
           </div>

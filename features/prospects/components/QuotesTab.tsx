@@ -33,15 +33,24 @@ export function QuotesTab() {
             <label>Status</label>
             <select className={styles.sel} defaultValue="All active">
               <option>All active</option>
+              <option>Generated</option>
+              <option>Sent to customer</option>
+              <option>In progress</option>
+              <option>Waiting on broker</option>
+              <option>Underwriting</option>
               <option>Bound</option>
-              <option>Expired</option>
+              <option>Follow up</option>
+              <option>Declined by DiamondBack</option>
+              <option>Declined by MTM</option>
+              <option>Deleted (hidden)</option>
             </select>
           </div>
           <div className={styles.qCell}>
             <label>Files</label>
             <select className={styles.sel} defaultValue="All (uploaded files)">
               <option>All (uploaded files)</option>
-              <option>With files</option>
+              <option>Has Upload Files</option>
+              <option>No Upload Files</option>
             </select>
           </div>
           <div className={styles.qCell}>

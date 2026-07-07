@@ -1,6 +1,8 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { EMPTY_CELL_STYLE, matchesQuery } from "@/lib/utils/table-search";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./ProspectsTab.module.css";
@@ -30,6 +32,12 @@ const PROSPECTS: EntityRow[] = [
 
 export function ProspectsTab() {
   const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(
+    () => PROSPECTS.filter((row) => matchesQuery(query, [row.company, row.dot, row.email, row.owner])),
+    [query],
+  );
 
   return (
     <div>
@@ -37,7 +45,12 @@ export function ProspectsTab() {
         <div className={styles.asGrid}>
           <div className={styles.asLine}>
             <span className={styles.fieldLbl}>Prospect</span>
-            <input className={styles.inp} placeholder="search by names / DBA" />
+            <input
+              className={styles.inp}
+              placeholder="search by names / DBA"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
           <div className={styles.asCol}>
             <div className={styles.asLine}>
@@ -73,7 +86,7 @@ export function ProspectsTab() {
               </tr>
             </thead>
             <tbody>
-              {PROSPECTS.map((row, i) => (
+              {filtered.map((row, i) => (
                 <tr
                   key={`${row.company}-${i}`}
                   className={styles.rowLink}
@@ -90,6 +103,13 @@ export function ProspectsTab() {
                   <td>{row.created}</td>
                 </tr>
               ))}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={EMPTY_CELL_STYLE}>
+                    No prospects match “{query}”.
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>

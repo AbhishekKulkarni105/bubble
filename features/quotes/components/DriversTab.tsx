@@ -10,23 +10,33 @@ export function DriversTab({ quote }: { quote: QuoteDetail }) {
           <select className={styles.sel} defaultValue="All">
             <option>All</option>
             <option>Commercial</option>
-            <option>Regular</option>
+            <option>Non Commercial</option>
           </select>
         </div>
         <div className={styles.filterCell}>
           <label>Driver&apos;s violations:</label>
           <select className={styles.sel} defaultValue="All">
             <option>All</option>
-            <option>With violations</option>
-            <option>Without violations</option>
+            <option>Has violations</option>
+            <option>Doesn't have violations</option>
           </select>
         </div>
         <div className={styles.filterCell}>
           <label>Sort drivers by:</label>
           <select className={styles.sel} defaultValue="Default (date created)">
             <option>Default (date created)</option>
-            <option>Age</option>
-            <option>Name</option>
+            <option>Name asc.</option>
+            <option>Name desc.</option>
+            <option>Age asc.</option>
+            <option>Age desc.</option>
+            <option>State asc.</option>
+            <option>State desc.</option>
+            <option>License date asc.</option>
+            <option>License date desc.</option>
+            <option>Date of birth asc.</option>
+            <option>Date of birth desc.</option>
+            <option>Number violations asc.</option>
+            <option>Number violations desc.</option>
           </select>
         </div>
       </div>

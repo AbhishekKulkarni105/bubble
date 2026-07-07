@@ -1,4 +1,8 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import { EMPTY_CELL_STYLE, matchesQuery } from "@/lib/utils/table-search";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./PoliciesTab.module.css";
@@ -27,6 +31,17 @@ const POLICIES: PolicyRow[] = [
 ];
 
 export function PoliciesTab() {
+  const [policyNo, setPolicyNo] = useState("");
+  const [insured, setInsured] = useState("");
+
+  const filtered = useMemo(
+    () =>
+      POLICIES.filter(
+        (row) => matchesQuery(policyNo, [row.policyNo]) && matchesQuery(insured, [row.insured]),
+      ),
+    [policyNo, insured],
+  );
+
   return (
     <div>
       <AdvancedSearch>
@@ -34,11 +49,21 @@ export function PoliciesTab() {
           <div className={styles.asCol}>
             <div className={styles.asLine}>
               <span className={styles.fieldLbl}>Policy #</span>
-              <input className={styles.inp} placeholder="policy number" />
+              <input
+                className={styles.inp}
+                placeholder="policy number"
+                value={policyNo}
+                onChange={(e) => setPolicyNo(e.target.value)}
+              />
             </div>
             <div className={styles.asLine}>
               <span className={styles.fieldLbl}>Insured</span>
-              <input className={styles.inp} placeholder="search by names" />
+              <input
+                className={styles.inp}
+                placeholder="search by names"
+                value={insured}
+                onChange={(e) => setInsured(e.target.value)}
+              />
             </div>
           </div>
           <div className={styles.dateCol}>
@@ -96,7 +121,7 @@ export function PoliciesTab() {
               </tr>
             </thead>
             <tbody>
-              {POLICIES.map((row, i) => (
+              {filtered.map((row, i) => (
                 <tr key={`${row.policyNo}-${i}`}>
                   <td>
                     <Link href={`/policies/${row.policyNo}`} className={styles.cellLink}>
@@ -111,6 +136,13 @@ export function PoliciesTab() {
                   <td>{row.created}</td>
                 </tr>
               ))}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={EMPTY_CELL_STYLE}>
+                    No policies match your search.
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>

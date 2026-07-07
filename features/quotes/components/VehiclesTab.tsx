@@ -9,7 +9,9 @@ export function VehiclesTab({ quote }: { quote: QuoteDetail }) {
           <label>Vehicle types shown in result:</label>
           <select className={styles.sel} defaultValue="All">
             <option>All</option>
+            <option>Truck Tractor & Light Truck</option>
             <option>Truck Tractor</option>
+            <option>Light/Box Truck</option>
             <option>Trailer</option>
           </select>
         </div>
@@ -25,8 +27,12 @@ export function VehiclesTab({ quote }: { quote: QuoteDetail }) {
           <label>Sort vehicles by:</label>
           <select className={styles.sel} defaultValue="Default (create date)">
             <option>Default (create date)</option>
-            <option>Year</option>
-            <option>Make</option>
+            <option>Year asc.</option>
+            <option>Year desc.</option>
+            <option>Name asc.</option>
+            <option>Name desc.</option>
+            <option>Value asc.</option>
+            <option>Value desc.</option>
           </select>
         </div>
       </div>

@@ -1,6 +1,8 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { EMPTY_CELL_STYLE, matchesQuery } from "@/lib/utils/table-search";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./InsuredsTab.module.css";
@@ -30,6 +32,12 @@ const INSUREDS: EntityRow[] = [
 
 export function InsuredsTab() {
   const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(
+    () => INSUREDS.filter((row) => matchesQuery(query, [row.company, row.dot, row.email, row.owner])),
+    [query],
+  );
 
   return (
     <div>
@@ -37,7 +45,12 @@ export function InsuredsTab() {
         <div className={styles.asGrid}>
           <div className={styles.asLine}>
             <span className={styles.fieldLbl}>Insured</span>
-            <input className={styles.inp} placeholder="search by names / DBA" />
+            <input
+              className={styles.inp}
+              placeholder="search by names / DBA"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
           <div className={styles.asCol}>
             <div className={styles.asLine}>
@@ -77,7 +90,7 @@ export function InsuredsTab() {
               </tr>
             </thead>
             <tbody>
-              {INSUREDS.map((row, i) => (
+              {filtered.map((row, i) => (
                 <tr
                   key={`${row.company}-${i}`}
                   className={styles.rowLink}
@@ -94,6 +107,13 @@ export function InsuredsTab() {
                   <td>{row.created}</td>
                 </tr>
               ))}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={EMPTY_CELL_STYLE}>
+                    No insureds match “{query}”.
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>

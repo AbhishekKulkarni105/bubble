@@ -1,5 +1,9 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Pencil, Search, MoreHorizontal } from "lucide-react";
+import { EMPTY_CELL_STYLE, matchesQuery } from "@/lib/utils/table-search";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./QuotesTab.module.css";
@@ -29,15 +33,27 @@ const QUOTES: QuoteRow[] = [
 ];
 
 export function QuotesTab() {
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(
+    () => QUOTES.filter((row) => matchesQuery(query, [row.quoteId, row.proposal, row.insured])),
+    [query],
+  );
+
   return (
     <div>
-      <AdvancedSearch aside={<div className={styles.quotesFound}>Quotes found: 53</div>}>
+      <AdvancedSearch aside={<div className={styles.quotesFound}>Quotes found: {filtered.length}</div>}>
         <div className={styles.qSearchTop}>
           <button type="button" className={styles.iconBtn} aria-label="Search quotes">
             <Pencil />
           </button>
           <div className={styles.qSearchInput}>
-            <input className={styles.inp} placeholder="MTM ID, proposal # or Insured name" />
+            <input
+              className={styles.inp}
+              placeholder="MTM ID, proposal # or Insured name"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
             <Search className={styles.mag} />
           </div>
           <div className={styles.qCell}>
@@ -114,7 +130,7 @@ export function QuotesTab() {
               </tr>
             </thead>
             <tbody>
-              {QUOTES.map((row, i) => (
+              {filtered.map((row, i) => (
                 <tr key={`${row.quoteId}-${i}`}>
                   <td>
                     <Link href={`/quotes/${row.quoteId}`} className={styles.cellLink}>
@@ -139,6 +155,13 @@ export function QuotesTab() {
                   </td>
                 </tr>
               ))}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={EMPTY_CELL_STYLE}>
+                    No quotes match “{query}”.
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>

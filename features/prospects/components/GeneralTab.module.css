@@ -95,6 +95,113 @@
   font-size: 13px;
 }
 
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 30, 51, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal {
+  background: #fff;
+  border: 1px solid var(--vayga-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(12, 30, 51, 0.2);
+  padding: 22px 24px;
+  width: 100%;
+  max-width: 380px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.modalTitle {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--vayga-text);
+  margin-bottom: 16px;
+}
+
+.modalSelect,
+.modalInput {
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--vayga-text);
+  padding: 10px 12px;
+  border: 1px solid var(--vayga-border-2);
+  border-radius: var(--vayga-radius-sm);
+  background: #fff;
+  outline: none;
+  transition: all var(--vayga-t);
+}
+
+.modalSelect {
+  cursor: pointer;
+}
+
+.modalSelect:focus,
+.modalInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.modalToggle {
+  display: block;
+  margin: 12px 0 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #2563eb;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modalToggle:hover {
+  text-decoration: underline;
+}
+
+.modalSent {
+  text-align: center;
+  font-size: 14px;
+  color: var(--vayga-text);
+  margin-bottom: 16px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.modalSend {
+  min-width: 120px;
+  padding: 9px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2563eb;
+  background: #fff;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--vayga-t);
+}
+
+.modalSend:hover:not(:disabled) {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.modalSend:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 720px) {
   .twoCol,
   .contactsGrid {

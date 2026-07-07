@@ -1,6 +1,10 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { UserPlus, Download, Search, SlidersHorizontal, Pencil } from "lucide-react";
 import { DashboardHeader } from "@/features/dashboard/components/DashboardHeader";
+import { EMPTY_CELL_STYLE, matchesQuery } from "@/lib/utils/table-search";
 import headerStyles from "@/features/dashboard/components/DashboardHeader.module.css";
 import styles from "@/components/ui/data-table.module.css";
 
@@ -36,6 +40,13 @@ const USERS: UserRow[] = [
 ];
 
 export function UsersPage() {
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(
+    () => USERS.filter((user) => matchesQuery(query, [user.name, user.email, user.agency, user.role])),
+    [query],
+  );
+
   return (
     <div>
       <DashboardHeader
@@ -58,7 +69,12 @@ export function UsersPage() {
           <div className={styles.controls}>
             <div className={styles.search}>
               <Search />
-              <input placeholder="Search users…" aria-label="Search users" />
+              <input
+                placeholder="Search users…"
+                aria-label="Search users"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
             </div>
             <button type="button" className={styles.fltBtn}>
               <SlidersHorizontal />
@@ -80,7 +96,7 @@ export function UsersPage() {
               </tr>
             </thead>
             <tbody>
-              {USERS.map((user) => (
+              {filtered.map((user) => (
                 <tr key={user.id}>
                   <td>
                     <div className={styles.rowFlex}>
@@ -129,6 +145,13 @@ export function UsersPage() {
                   </td>
                 </tr>
               ))}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={EMPTY_CELL_STYLE}>
+                    No users match “{query}”.
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>

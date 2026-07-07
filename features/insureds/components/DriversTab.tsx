@@ -26,9 +26,27 @@ export function DriversTab() {
               <label className={styles.label}>Prefix</label>
               <select className={styles.sel} defaultValue="">
                 <option value="">Prefix</option>
-                <option>Mr</option>
-                <option>Ms</option>
-                <option>Mrs</option>
+                <option>Mr.</option>
+                <option>Ms.</option>
+                <option>Mrs.</option>
+                <option>Miss</option>
+                <option>Dr.</option>
+                <option>Prof.</option>
+                <option>Rev.</option>
+                <option>Hon.</option>
+                <option>Capt.</option>
+                <option>Lt.</option>
+                <option>Cmdr.</option>
+                <option>Col.</option>
+                <option>Maj.</option>
+                <option>Gen.</option>
+                <option>Sgt.</option>
+                <option>Chief</option>
+                <option>Adm.</option>
+                <option>Judge</option>
+                <option>Sir</option>
+                <option>Dame</option>
+                <option>Officer</option>
               </select>
             </div>
             <div className={styles.formRow}>
@@ -47,8 +65,18 @@ export function DriversTab() {
               <label className={styles.label}>Suffix</label>
               <select className={styles.sel} defaultValue="">
                 <option value="">Suffix</option>
-                <option>Jr</option>
-                <option>Sr</option>
+                <option>Jr.</option>
+                <option>Sr.</option>
+                <option>II</option>
+                <option>III</option>
+                <option>IV</option>
+                <option>V</option>
+                <option>Ph.D.</option>
+                <option>M.D.</option>
+                <option>Esq.</option>
+                <option>CPA</option>
+                <option>DDS</option>
+                <option>Ret.</option>
               </select>
             </div>
             <div className={styles.formRow}>
@@ -84,9 +112,9 @@ export function DriversTab() {
               <label className={`${styles.label} ${styles.required}`}>Class *</label>
               <select className={styles.sel} defaultValue="">
                 <option value="">Class</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
+                <option>All</option>
+                <option>Commercial</option>
+                <option>Non Commercial</option>
               </select>
             </div>
             <div className={styles.formRow}>
@@ -113,8 +141,10 @@ export function DriversTab() {
               <input className={styles.inp} placeholder="Phone" />
               <select className={styles.sel} defaultValue="Insured primary">
                 <option>Insured primary</option>
-                <option>Business</option>
-                <option>Mobile</option>
+                <option>Office</option>
+                <option>Fax</option>
+                <option>Home</option>
+                <option>Mobile/Cell</option>
               </select>
               <button type="button" className={styles.addBtn} aria-label="Add phone">
                 <Plus />
@@ -127,7 +157,7 @@ export function DriversTab() {
               <input className={styles.inp} placeholder="email" />
               <select className={styles.sel} defaultValue="Insured primary">
                 <option>Insured primary</option>
-                <option>Business</option>
+                <option>Office</option>
               </select>
               <button type="button" className={styles.addBtn} aria-label="Add email">
                 <Plus />

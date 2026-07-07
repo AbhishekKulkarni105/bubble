@@ -1,4 +1,8 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import { Pencil } from "lucide-react";
+import { EMPTY_CELL_STYLE, matchesQuery } from "@/lib/utils/table-search";
 import { AdvancedSearch } from "./AdvancedSearch";
 import { Pager } from "./Pager";
 import styles from "./InvitationsTab.module.css";
@@ -18,12 +22,24 @@ const INVITATIONS: InvitationRow[] = [
 ];
 
 export function InvitationsTab() {
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(
+    () => INVITATIONS.filter((row) => matchesQuery(query, [row.sender, row.sentTo, row.role])),
+    [query],
+  );
+
   return (
     <div>
       <AdvancedSearch>
         <div className={styles.fieldRow}>
           <div className={styles.fieldLbl}>Member name</div>
-          <input className={`${styles.inp} ${styles.inpWide}`} placeholder="search by member name" />
+          <input
+            className={`${styles.inp} ${styles.inpWide}`}
+            placeholder="search by member name"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
           <button type="button" className={styles.iconBtn} aria-label="Search invitations">
             <Pencil />
           </button>
@@ -43,7 +59,7 @@ export function InvitationsTab() {
               </tr>
             </thead>
             <tbody>
-              {INVITATIONS.map((row, i) => (
+              {filtered.map((row, i) => (
                 <tr key={`${row.sentTo}-${i}`}>
                   <td>
                     <span className={styles.cellStrong}>{row.sender}</span>
@@ -62,6 +78,13 @@ export function InvitationsTab() {
                   </td>
                 </tr>
               ))}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={5} style={EMPTY_CELL_STYLE}>
+                    No invitations match “{query}”.
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>
