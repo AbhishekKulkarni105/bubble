@@ -123,7 +123,7 @@ export default function LoginPage() {
           </form>
 
           <div className={styles.divider} />
-          <Link href="/quotes/new" className={styles.quoteLink}>
+          <Link href="/get-quote" className={styles.quoteLink}>
             Get a quote — no registration required
           </Link>
         </section>

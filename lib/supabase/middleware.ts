@@ -27,8 +27,10 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const isAuthRoute = request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/reset-password");
+  // Publicly accessible routes that don't require a session (e.g. the no-registration quote form).
+  const isPublicRoute = request.nextUrl.pathname.startsWith("/get-quote");
 
-  if (!user && !isAuthRoute) {
+  if (!user && !isAuthRoute && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
